@@ -158,3 +158,65 @@ def draw_disk(ax, c, r, col, alph=0.7, w=1):
     e.set_clip_box(ax.bbox)
     e.set_alpha(alph)  # transparency
     e.set_facecolor(col)
+
+
+def draw_arrow_test_arc(x, y, θ, L, col='darkblue', w=1):
+    plot2D_no_ax(tran2H(x, y) @ rot2H(θ) @ arrow2H(L), col, w)
+
+
+
+def draw_arc(c, a, θ, col, ax):
+    s = arange(0, abs(θ), 0.01)
+    s = sign(θ) * s
+    d = a - c
+    r = norm(d)
+    alpha = angle(d)
+    w = c @ ones((1, size(s))) + r * array([[cos(alpha), -sin(alpha)], [sin(alpha), cos(alpha)]]) @ array(
+        [cos(s), sin(s)])
+    ax.plot(w[0, :], w[1, :], color=col, linewidth=2)
+
+
+
+def draw_cone_arc(x, y, R, sight_angle, cap, ax):
+    """
+    Args:
+        pos_robot (array): coordinates of the robot (x, y)
+        R (float): robot detection range
+        sight_angle (radian): robot detection angle
+        cap (radian): robot heading (angle)
+    """
+    edge_1_x = x + R * cos(sight_angle / 2 + cap)
+    edge_1_y = y + R * sin(sight_angle / 2 + cap)
+    edge_2_x = x + R * cos(-sight_angle / 2 + cap)
+    edge_2_y = y + R * sin(-sight_angle / 2 + cap)
+
+    edge_2 = array([[edge_2_x], [edge_2_y]])  # Extremity right of the detection zone
+    robot = array([[x], [y]])
+
+    # Array to fill for shading the detection zone
+    sector_points_x = [x, edge_1_x]
+    sector_points_y = [y, edge_1_y]
+
+    # Create the list of points along the arc
+    num_arc_points = 200
+    arc_angles = np.linspace(cap + sight_angle / 2, cap - sight_angle / 2, num_arc_points)
+    arc_x = x + R * cos(arc_angles)
+    arc_y = y + R * sin(arc_angles)
+
+    sector_points_x.extend(arc_x)
+    sector_points_y.extend(arc_y)
+
+    # Add the other edge of the detection zone to complete the list of sector points
+    sector_points_x.append(edge_2_x)
+    sector_points_y.append(edge_2_y)
+
+    # Fill the detection zone with color
+    ax.fill(sector_points_x, sector_points_y, 'cyan', alpha=0.2)
+
+    # Plot the robot's direction lines and position
+    ax.plot([x, edge_1_x], [y, edge_1_y], 'bo', linestyle="-")
+    ax.plot([x, edge_2_x], [y, edge_2_y], 'bo', linestyle="-")
+    ax.plot(x, y, 'ko')
+
+    # Call draw_arc with the specified axis (ax)
+    draw_arc(robot, edge_2, sight_angle, col='red', ax=ax)

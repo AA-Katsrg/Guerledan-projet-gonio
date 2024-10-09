@@ -2,52 +2,26 @@ from calcul_tools import *
 from draw import *
 from simu import Simulation
 from boat import Boat
-from buoy import Island
+from buoy import Buoy
 
 
 
 class SimulationRunner:
     def __init__(self):
-        self.s = 15 
+        self.s = 8
         self.dt = 0.1 
         self.k = 0.5
         self.Ɛ = 2
         self.num_steps = 1000
         self.record_data = False
-        # self.rules = [
-        #     ["Rules :"],
-        #     ["Finish OT"],
-        #     ["Left OT"],
-        #     ["Right OT"],
-        #     ["R to R"]
-        # ]
-        # self.legend = [
-        #     ["Finish overtaking the obstacle", "Finish OT"],
-        #     ["Overtaking the obstacle on the left side", "Left OT"],
-        #     ["Overtaking the obstacle on the right side", "Right OT"],
-        #     ["Red to red rule to avoid the collision", "R to R"]
-        # ]
-
 
 
     def initialize_sea_objects(self):
         sea_objects = []
-        sea_objects.append(Boat(222, -3, 5, 1.5, 0.25))
-        sea_objects.append(Island(333, 0, 2, 0, 1))
+        sea_objects.append(Boat(222, -6, 2, 1.5, 0.25, 4, 1.75))
+        sea_objects.append(Buoy(333, 0, 2, 0, 1, 0, 0))
         # sea_objects.append(Ship(444, -10, -4, 1.5, 0.15))
         return sea_objects
-
-    # def initialize_data(self, sea_object, rules):
-    #     mmsi_list = []
-    #     # Create each blank cases
-    #     for row in range(1, len(rules)):
-    #         for col in range(len(sea_object)):
-    #             rules[row].append(" ")
-    #     # Create the colum's titles
-    #     for col in range(len(sea_object)):
-    #         rules[0].append(sea_object[col].mmsi)
-    #         mmsi_list.append(sea_object[col].mmsi)
-    #     return rules, mmsi_list
 
 
 

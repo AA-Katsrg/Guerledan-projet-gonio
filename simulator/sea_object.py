@@ -41,7 +41,7 @@ class SeaObject:
 
         self.privilege = 0
         self.r = 2 # collision avoidance radius for the object
-        self.cross_path = False
+        self.in_area = False
 
     # Update the position of an object based on up controller
     def update(self, u, dt):
@@ -66,26 +66,37 @@ class SeaObject:
         up = array([[0], [10*arctan(tan(0.5*(thetabar_p - self.theta)))]])
         return up
 
+    def vector_and_heading(self, xA, yA, xB, yB):
+        # Create the vector from A to B
+        vector = array([xB - xA, yB - yA])
+        # Calculate the heading (angle with respect to the x-axis)
+        heading = arctan2(vector[1], vector[0])  # atan2(delta_y, delta_x)
+        # Return the vector and the heading (in radians)
+        return heading
+
 
 
     # Moves the object every iteration
     def move(self, record_data, sea_objects, ax, Ɛ, s, k, dt):
 
-        # in_collision = False
-
-
         # Check risks of collision with every other object
         for other_object in sea_objects:
+            # Extracting the heading of the vector between the drone and the considerated buoy
+            buoy_heading = self.vector_and_heading(self.x, self.y, other_object.x, other_object.y)
             # Angle between two agents (in our project, we only care about the angle between the drone and the buoy/obstacle
-            α = abs(self.theta-other_object.theta)
+            α = abs(self.theta - buoy_heading)
+
             if self != other_object:
                 # When distance is in the detection area, and the angle in the sight angle of the cameras
                 if (dist(array([[other_object.x], [other_object.y]]), array([[self.x], [self.y]])) <= self.R) and (α <= self.sight_angle/2):
-                    # Object with smaller privilege avoids collision
-                    if self.privilege <= other_object.privilege:
-                        # up = self.avoid_collision(record_data, other_object, mmsi_list, rules, table, ax, Ɛ, s, max(self.r, other_object.r), k)
-                        # in_collision = True
-                        up = self.move_straight()
+                    other_object.in_area = True
+                    print('tag, in_area=', self.tag, self.in_area)
+                    print('yeaaa')
+                    up = self.move_straight()
+                else :
+                    other_object.in_area = False
+                    up = self.move_straight()
+                    print('stop')
 
         # # If there is no need to avoid collision
         # if not in_collision:

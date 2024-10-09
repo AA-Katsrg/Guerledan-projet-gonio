@@ -55,14 +55,4 @@ def angle(x):
     x=x.flatten()
     return arctan2(x[1],x[0])
 
-def draw_arrow(x,y,θ,L,col='darkblue',w=1):
-    plot2D_no_ax(tran2H(x,y)@rot2H(θ)@arrow2H(L),col,w)
-    
-def draw_arc(c,a,θ,col):
-    s = arange(0,abs(θ),0.01)
-    s = sign(θ) * s
-    d = a-c
-    r = norm(d)
-    alpha = angle(d)
-    w = c@ones((1,size(s))) + r*array([[cos(alpha), -sin(alpha)],[sin(alpha), cos(alpha)]])@array([cos(s),sin(s)])
-    plot2D_no_ax(w,col,2)  
+
