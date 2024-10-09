@@ -2,7 +2,7 @@ from sea_object import *
 from calcul_tools import *
 from draw import *
 
-class Island(SeaObject):
+class Buoy(SeaObject):
 
     def __init__(self, mmsi, x, y, v, theta):
         super().__init__(mmsi, x, y, v, theta)  # call the superclass's constructor

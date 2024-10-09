@@ -26,13 +26,15 @@ def control(x, φ, c, D, k, r):
 
 class SeaObject:
 
-    # x, y are positions, v is speed, theta is direction
-    def __init__(self, mmsi, x, y, v, theta):
-        self.mmsi = mmsi
+    # x, y are positions, v is speed, theta is direction, R is the sight radius of the camera
+    def __init__(self, tag, x, y, v, theta, R, sight_angle):
+        self.tag = tag
         self.x = x
         self.y = y
         self.v = v
         self.theta = theta
+        self.R = R
+        self.sight_angle = sight_angle
 
         destination_distance = 20 # the distance from initial position to destination
         self.phat = array([[self.x + destination_distance * cos(self.theta)], [self.y + destination_distance * sin(self.theta)]])
@@ -63,20 +65,22 @@ class SeaObject:
 
         up = array([[0], [10*arctan(tan(0.5*(thetabar_p - self.theta)))]])
         return up
-    
 
-    
+
+
     # Moves the object every iteration
     def move(self, record_data, sea_objects, ax, Ɛ, s, k, dt):
 
         # in_collision = False
 
+
         # Check risks of collision with every other object
         for other_object in sea_objects:
-
+            # Angle between two agents (in our project, we only care about the angle between the drone and the buoy/obstacle
+            α = abs(self.theta-other_object.theta)
             if self != other_object:
-                # When distance is smaller than collision radius
-                if dist(array([[other_object.x], [other_object.y]]), array([[self.x], [self.y]])) < max(self.r, other_object.r) + Ɛ:
+                # When distance is in the detection area, and the angle in the sight angle of the cameras
+                if (dist(array([[other_object.x], [other_object.y]]), array([[self.x], [self.y]])) <= self.R) and (α <= self.sight_angle/2):
                     # Object with smaller privilege avoids collision
                     if self.privilege <= other_object.privilege:
                         # up = self.avoid_collision(record_data, other_object, mmsi_list, rules, table, ax, Ɛ, s, max(self.r, other_object.r), k)
@@ -90,5 +94,5 @@ class SeaObject:
         # Update position
         self.update(up, dt)
 
-        return [self.mmsi, self.get_state_vector()]
+        return [self.tag, self.get_state_vector()]
 

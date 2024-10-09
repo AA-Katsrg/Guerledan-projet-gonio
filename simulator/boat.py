@@ -15,6 +15,7 @@ class Boat(SeaObject):
         # draw_circle(ax, self.x, self.y, self.r, 'red')               # DCPA zone to avoid related to the boat
         # draw_circle(ax, self.x, self.y, self.r + Ɛ, 'magenta')       # DCPA zone extended for safety : manoeuvring area
         # draw_disk(ax, self.phat, 0.2, 'green')                  # Display of the final destination
+        # -----> draw the arc here
 
     # Get the color displayed on the rules
     def get_color(self):

@@ -2,7 +2,7 @@ from calcul_tools import *
 from draw import *
 from simu import Simulation
 from boat import Boat
-from island import Island
+from buoy import Island
 
 
 
