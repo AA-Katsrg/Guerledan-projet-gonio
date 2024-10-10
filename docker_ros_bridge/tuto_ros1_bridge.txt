@@ -1,0 +1,92 @@
+------------------------
+Expected Final structure
+------------------------
+
+home/user:
+--ros_noetic_source
+----catkin_ws
+------change_cpp.py
+------src
+--------(sources)
+--ros_bridge
+----src
+------(repro)
+--ros_noetic_workspace
+----catkin_ws
+------src
+--------(pakages/custom ros1 msgs)
+--ros_humble_workspace
+----src
+------(pakages/custom ros2 msgs)
+
+
+------------------------
+Prepare Bashrc
+------------------------
+* Define PATHs in bashrc. (workspaces and ros are not directly sourced in bashrc, just the paths):
+(add following lines to .bashrc)
+
+export ROS1_INSTALL_PATH=~/ros_noetic_source/catkin_ws/devel_isolated/setup.bash
+export ROS2_INSTALL_PATH=/opt/ros/humble/setup.bash 
+export ROS1_WORKSPACE_PATH=~/ros_noetic_workspace/catkin_ws/devel/setup.bash
+export ROS2_WORKSPACE_PATH=~/ros_humble_workspace/install/setup.bash
+export ROS_BRIDGE_PATH=~/ros_bridge/install/setup.bash
+
+------------------------
+Installation to do on Docker
+------------------------
+
+* Have Ubuntu 22.04 + ROS2 humble (apt version)
+
+* Install ROS1 Noetic on Ubuntu 22.04:
+https://gist.github.com/Meltwin/fe2c15a5d7e6a8795911907f627255e0
+
+* Install missing ROS1 messages class (In ros_noetic_workspace/catkin_ws/src): (New terminal)
+
+cd ros_noetic_workspace/catkin_ws/src
+
+---sbg driver
+git clone https://github.com/SBG-Systems/sbg_ros_driver
+(Change C++ 11 version to C++ 17 in Cmake Lists)
+
+---dvl
+git clone https://github.com/waterlinked/dvl-a50-ros-driver
+
+--- INSTALL new ROS1 packages (in ros_noetic_workspace/catkin_ws/)
+source ${ROS1_INSTALL_PATH}
+catkin_make --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+* Install missing ROS2 messages class (In ros_humble_workspace/src): (New terminal)
+
+cd ros_humble_workspace/src
+
+---sbg driver
+git clone https://github.com/SBG-Systems/sbg_ros2_driver.git
+
+--- Install them (In ros_humble_workspace/):
+source ${ROS2_INSTALL_PATH}
+colcon build
+
+* Install bridge on ROS2 (https://github.com/ros2/ros1_bridge): (New terminal)
+(In ros_bridge/src)
+
+cd ros_bridge/src
+
+git clone https://github.com/ros2/ros1_bridge.git
+cd ..
+source ${ROS2_INSTALL_PATH} && source ${ROS2_WORKSPACE_PATH}
+colcon build --cmake-force-configure
+sudo rm -r build log install
+source ${ROS1_INSTALL_PATH} && source ${ROS1_WORKSPACE_PATH}
+colcon build --cmake-force-configure
+
+------------------------
+Running
+------------------------
+
+* run bridge (Anywhere on the computer)
+source ${ROS1_INSTALL_PATH} && source ${ROS1_WORKSPACE_PATH}
+source ${ROS2_INSTALL_PATH} && source ${ROS2_WORKSPACE_PATH} && source ${ROS_BRIDGE_PATH}
+export ROS_MASTER_URI=http://localhost:11311
+ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
+
