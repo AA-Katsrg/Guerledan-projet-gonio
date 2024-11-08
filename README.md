@@ -1,3 +1,5 @@
 # Guerlédan Rob 3A : Projet Gonio
 
-<img title="ROS Flow Structure" alt="Alt text" src="gonio_ros_structure.svg" style="height: 600px;">
+<div style="text-align: center;">
+  <img title="a title" alt="Alt text" src="gonio_ros_structure2.svg" style="height: 600px;">
+</div>
