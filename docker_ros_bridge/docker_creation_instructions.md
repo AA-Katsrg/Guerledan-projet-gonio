@@ -117,10 +117,10 @@ ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
 * We can now export this container as an image and share it with other:
 ```
 docker ps -a
-docker export -o [wanted_image_name.tar] [container_name_or_id]
+docker export -o ros_bridge_noetic_humble.tar [container_name_or_id]
 ```
 
 ## 11) Install the .tar image on another computer
 ```
-docker import [image_name.tar] [my_new_image_name]
+docker import ros_bridge_noetic_humble.tar ros_bridge_noetic_humble
 ```
