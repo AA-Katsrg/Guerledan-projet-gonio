@@ -4,7 +4,12 @@
 
 ## 2) Start the Docker
 ```
-./run.bash
+bash run.bash
+```
+
+or if running, connect to it:
+```
+docker exec -it ros_bridge_noetic_humble /bin/bash
 ```
 
 ## 3) Login as User if not logged in (/root)
@@ -15,11 +20,11 @@ su - rosuser
 ## 4) Run our custom shared bash files (inside docker)
 * To simply run the bridge that converts ROS1 Noetic messages to ROS2 Humble ones.
 ```
-bash app/start_runtime_bridge.sh
+bash shared/start_runtime_bridge.sh
 ```
 * To Replay a ROS1 bag + run the bridge that converts ROS1 Noetic messages to ROS2 Humble ones.
 ```
-bash app/start_replay_bridge.sh app/[path_or_name_rosbag]
+bash shared/start_replay_bridge.sh shared/[path_or_name_rosbag]
 ```
 
 ## 5) Switch the tmux terminals if needed
