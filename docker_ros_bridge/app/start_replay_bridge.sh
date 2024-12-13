@@ -31,6 +31,14 @@ rosrun convert_sbg_to_common convert_sbg_to_common.py"
 # Add delay before starting the next window
 #sleep 1 
 
+echo 'Launching: ouster_ros'
+
+# Start ouster_ros in a named tmux window (to get 3D lidar points from raw data)
+tmux new-window -t runtime_bridge -n ouster_ros "source ${ROS1_INSTALL_PATH} && source ${ROS1_WORKSPACE_PATH} && \
+roslaunch ouster_ros ouster_replay.launch replay:=true metadata:=/home/rosuser/shared/os1_surcouf.json"
+# Add delay before starting the next window
+#sleep 1
+
 echo 'Launching: ros_bridge'
 
 # Start ros1_bridge in a named tmux window
@@ -40,6 +48,7 @@ export ROS_MASTER_URI=http://localhost:11311 && \
 ros2 run ros1_bridge dynamic_bridge --bridge-all-topics"
 # Add delay before starting the next window
 sleep 3
+
 
 echo 'Launching: debug_term'
 

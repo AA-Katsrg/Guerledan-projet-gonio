@@ -108,7 +108,7 @@ Run the Bridge:
 ```
 source ${ROS1_SOURCE} && source ${ROS1_WORKSPACE}
 source ${ROS2_SOURCE} && source ${ROS2_WORKSPACE} && source ${ROS_BRIDGE}
-export ROS_MASTER_URI=http://localhost:11311
+export ROS_MASTER_URI=http://127.0.0.1:11311
 ros2 run ros1_bridge dynamic_bridge --bridge-all-topics
 ```
 
