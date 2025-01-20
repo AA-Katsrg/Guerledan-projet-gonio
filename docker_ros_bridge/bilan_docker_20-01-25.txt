@@ -1,0 +1,16 @@
+Tout les topics ROS1 sont maintenant traduit en ROS2: Nuages de points, SBG, DVL...
+
+#problème avec communcation host-docker
+				Visibilité sur Docker  || Visibilité sur PC host
+Nom des Topics ROS1 :			Oui			Oui
+Nom des Topics ROS2 :			Oui			Oui
+Données dans les topics ROS1 :		Oui			Oui
+Données dans les topics ROS2 : 		Oui			Non
+
+Solutions:
+
+#Régler le problème:
+- Trouver pourquoi les topics ROS2 sont vides sur le PC host (echo ne detecte pas de données, mais les noms de topics sont bien existants), alors que faire un 'echo' dans le container permet bien de voir les données ROS2.
+
+#Garder le docker comme ca:
+- La communication avec les topics ROS1 semble marchée, donc on peut utiliser le docker pour traduire de ROS1 à ROS2 le robot, ou les rosbag, mais après il faut lancer nos nodes ROS2 dans le docker directement, pour avoir accès aux données. (Possibilité d'ajouter nos packages dans le dossier partagé "app" et ensuite compiler & sourcer les packages directement depuis le docker, puis les lancer aussi depuis le docker)
