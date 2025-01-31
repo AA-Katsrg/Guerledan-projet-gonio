@@ -18,7 +18,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/BoxStamped.msg"
   "msg/Tube.msg"
   "msg/TubeStamped.msg"
-  "msg/BoxStampedList.msg"
+  "msg/BoxListStamped.msg"
   DEPENDENCIES std_msgs # Add packages that above messages depend on
 )
 
