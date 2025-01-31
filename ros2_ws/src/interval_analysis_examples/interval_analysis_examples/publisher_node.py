@@ -3,6 +3,8 @@ from rclpy.node import Node
 from interval_analysis_interfaces.msg import Interval as IntervalMsg
 from interval_analysis_interfaces.msg import Box as BoxMsg
 from interval_analysis_interfaces.msg import Tube as TubeMsg
+from interval_analysis_interfaces.msg import BoxListStamped as BoxListStampedMsg
+from std_msgs.msg import Header
 
 class PublisherNode(Node):
     def __init__(self):
@@ -12,11 +14,13 @@ class PublisherNode(Node):
         self.interval_pub = self.create_publisher(IntervalMsg, 'interval_topic', 10)
         self.box_pub = self.create_publisher(BoxMsg, 'box_topic', 10)
         self.tube_pub = self.create_publisher(TubeMsg, 'tube_topic', 10)
+        self.box_list_stamped_pub = self.create_publisher(BoxListStampedMsg, 'box_stamped_list_topic', 10)
 
         # Separate timers for each message type
         self.create_timer(1.0, self.publish_interval)  # Publish Interval every 1 second
         self.create_timer(1.0, self.publish_box)       # Publish Box every 2 seconds
         self.create_timer(1.0, self.publish_tube)      # Publish Tube every 3 seconds
+        self.create_timer(4.0, self.publish_box_list_stamped)  # Publish BoxStampedList every 4 seconds
 
     def publish_interval(self):
         interval = IntervalMsg()
@@ -65,6 +69,23 @@ class PublisherNode(Node):
         # Publish the tube
         self.tube_pub.publish(tube)
         self.get_logger().info(f'\nPublished Tube: {tube}\n')
+
+    def publish_box_list_stamped(self):
+        box_list_stamped = BoxListStampedMsg()
+        box_list_stamped.name = "Example BoxStampedList"
+
+        # Create two stamped boxes
+        box1 = BoxMsg(name="Box1 at t1", intervals=[IntervalMsg(name="Interval1", start=0.0, end=5.0),
+                                                  IntervalMsg(name="Interval3", start=10.0, end=15.0)])
+        box2 = BoxMsg(name="Box2 at t2", intervals=[IntervalMsg(name="Interval1", start=0.0, end=5.0),
+                                                  IntervalMsg(name="Interval2", start=8.0, end=10.0),
+                                                  IntervalMsg(name="Interval3", start=10.0, end=10.0)])
+
+        box_list_stamped.header = Header(stamp=self.get_clock().now().to_msg(), frame_id="world")
+        box_list_stamped.boxes = [box1, box2]
+
+        self.box_list_stamped_pub.publish(box_list_stamped)
+        self.get_logger().info(f'\nPublished BoxStampedList: {box_list_stamped}\n')
 
 
 def main(args=None):

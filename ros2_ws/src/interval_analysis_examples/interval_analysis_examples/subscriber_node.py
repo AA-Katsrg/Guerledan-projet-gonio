@@ -3,6 +3,8 @@ from rclpy.node import Node
 from interval_analysis_interfaces.msg import Interval as IntervalMsg
 from interval_analysis_interfaces.msg import Box as BoxMsg
 from interval_analysis_interfaces.msg import Tube as TubeMsg
+from interval_analysis_interfaces.msg import BoxListStamped as BoxListStampedMsg
+from std_msgs.msg import Header
 
 class SubscriberNode(Node):
     def __init__(self):
@@ -25,6 +27,12 @@ class SubscriberNode(Node):
             TubeMsg,
             'tube_topic',
             self.tube_callback,
+            10
+        )
+        self.box_list_stamped_sub = self.create_subscription(
+            BoxListStampedMsg,
+            'box_stamped_list_topic',
+            self.box_list_stamped_callback,
             10
         )
 
@@ -69,6 +77,19 @@ class SubscriberNode(Node):
                     self.get_logger().info(f"    {interval.name} starts at negative infinity.")
                 if interval.end == float('inf'):
                     self.get_logger().info(f"    {interval.name} ends at positive infinity.")
+
+    def box_list_stamped_callback(self, msg):
+        self.get_logger().info(f"Received BoxListStamped: Name = {msg.name}")
+        self.get_logger().info(f"  - Timestamp: {msg.header.stamp.sec}.{msg.header.stamp.nanosec} | Frame ID: {msg.header.frame_id}")
+        for box in msg.boxes:
+            self.get_logger().info(f"    Box Name: {box.name}")
+            for interval in box.intervals:
+                self.get_logger().info(f"      Interval: Name = {interval.name}, Start = {interval.start}, End = {interval.end}")
+                if interval.start == -float('inf'):
+                    self.get_logger().info(f"      {interval.name} starts at negative infinity.")
+                if interval.end == float('inf'):
+                    self.get_logger().info(f"      {interval.name} ends at positive infinity.")
+
 
 def main(args=None):
     rclpy.init(args=args)

@@ -47,7 +47,7 @@ source ${ROS2_INSTALL_PATH} && source ${ROS_BRIDGE_PATH} && \
 export ROS_MASTER_URI=http://localhost:11311 && \
 ros2 run ros1_bridge dynamic_bridge --bridge-all-topics"
 # Add delay before starting the next window
-sleep 3
+sleep 5
 
 
 echo 'Launching: debug_term'
