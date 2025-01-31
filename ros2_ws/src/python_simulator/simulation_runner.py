@@ -9,21 +9,22 @@ from boat import Boat
 from buoy import Buoy
 from calcul_tools import *
 from draw import *
+import math
 
 
-class PositionPublisher(Node):
-    def __init__(self, threshold=0.1):  # Add threshold as a parameter
-        super().__init__('position_publisher')
-        self.publisher_ = self.create_publisher(Box, '/it/position', 10)
-        self.threshold = threshold  # Store threshold value
+class USVPublisher(Node):
+    def __init__(self, threshold=0.1):
+        super().__init__('usv_publisher')
+        self.position_publisher = self.create_publisher(Box, '/it/position', 10)
+        self.velocity_publisher = self.create_publisher(Box, '/it/velocity', 10)
+        self.threshold = threshold
 
     def publish_position(self, x, y, z=0.0):
-        # Create intervals using the threshold
+        # Create intervals for position
         interval_x = Interval(name="x", start=x - self.threshold, end=x + self.threshold)
         interval_y = Interval(name="y", start=y - self.threshold, end=y + self.threshold)
-        interval_z = Interval(name="z", start=z, end=z)  # Fixed at 0 for 2D
+        interval_z = Interval(name="z", start=z, end=z)
 
-        # Populate Box message
         msg = Box()
         msg.header = Header()
         msg.header.stamp = self.get_clock().now().to_msg()
@@ -31,20 +32,41 @@ class PositionPublisher(Node):
         msg.name = "USV position"
         msg.intervals = [interval_x, interval_y, interval_z]
 
-        self.publisher_.publish(msg)
+        self.position_publisher.publish(msg)
         self.get_logger().info(f'Published position: x=[{x-self.threshold}, {x+self.threshold}], '
                                f'y=[{y-self.threshold}, {y+self.threshold}], z=[{z}]')
 
+    def publish_velocity(self, speed, theta):
+        vx = speed * math.cos(theta)
+        vy = speed * math.sin(theta)
+        vz = 0.0  # Fixed at 0 for 2D
+
+        # Create intervals for velocity
+        interval_vx = Interval(name="vx", start=vx - self.threshold, end=vx + self.threshold)
+        interval_vy = Interval(name="vy", start=vy - self.threshold, end=vy + self.threshold)
+        interval_vz = Interval(name="vz", start=vz, end=vz)
+
+        msg = Box()
+        msg.header = Header()
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = "map"
+        msg.name = "USV velocity"
+        msg.intervals = [interval_vx, interval_vy, interval_vz]
+
+        self.velocity_publisher.publish(msg)
+        self.get_logger().info(f'Published velocity: vx=[{vx-self.threshold}, {vx+self.threshold}], '
+                               f'vy=[{vy-self.threshold}, {vy+self.threshold}], vz=[{vz}]')
+
 
 class SimulationRunner:
-    def __init__(self, threshold=0.1):  # Threshold for intervals
+    def __init__(self, threshold=0.1):
         self.s = 8
         self.dt = 0.1
         self.k = 0.5
         self.Ɛ = 2
         self.num_steps = 1000
         self.record_data = False
-        self.position_publisher = PositionPublisher(threshold)  # Pass threshold
+        self.usv_publisher = USVPublisher(threshold)
 
     def initialize_sea_objects(self):
         sea_objects = []
@@ -53,23 +75,23 @@ class SimulationRunner:
         return sea_objects
 
     def run(self):
-        rclpy.init()  # Initialize ROS2
+        rclpy.init()
         sea_objects = self.initialize_sea_objects()
         simulation = Simulation(sea_objects, self.dt, self.k)
         fig, ax = init_figure(-self.s, self.s, -self.s, self.s)
 
         for step in range(self.num_steps):
-            # Clear the plot and update positions
             simulation.run(self.record_data, 1, ax, self.Ɛ, self.s)
 
             # Publish position for the first boat --> check in initialize_sea_objects
-            # Adapt depedning on the chosen configuration, but we should always have one boat in our project
-            boat = sea_objects[0]  # Assuming the first object is the boat
-            self.position_publisher.publish_position(boat.x, boat.y, z=0.0)
+            # Adapt depending on the chosen configuration, but we should always have one boat in our project
+            boat = sea_objects[0]   # First object should be the boat
+            self.usv_publisher.publish_position(boat.x, boat.y, z=0.0)
+            self.usv_publisher.publish_velocity(boat.v, boat.theta)
 
-        rclpy.shutdown()  # Shutdown ROS2
+        rclpy.shutdown()
 
 
 if __name__ == "__main__":
-    runner = SimulationRunner(threshold=0.2)  # Set threshold value
+    runner = SimulationRunner(threshold=0.2)
     runner.run()
