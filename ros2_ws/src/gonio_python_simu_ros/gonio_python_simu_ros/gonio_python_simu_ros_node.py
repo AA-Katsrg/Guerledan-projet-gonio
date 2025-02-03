@@ -62,6 +62,7 @@ class GonioPythonSimuRosNode(Node):
         self.sea_objects = []
         self.sea_objects.append(Boat(222, -6, 2, 1.5, 0.25, 4, 1.75))
         self.sea_objects.append(Buoy(333, 0, 2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(334, -1, -2, 0, 1, 0, 0))
 
         #visuals
         self.simulation = Simulation(self.sea_objects, self.dt, self.k)
@@ -102,7 +103,7 @@ class GonioPythonSimuRosNode(Node):
         #simulation should fatser than sensors rates
         self.create_timer(1.0 / simu_rate, self.simulate)
 
-        self.get_logger().info(f"Simulation started...")
+        self.get_logger().info(f"Simulation started....")
 
     def publish_box_stamped_position(self):
         if self.box_stamped_position is not None:
@@ -182,8 +183,8 @@ class GonioPythonSimuRosNode(Node):
                 #get range
                 r = sqrt((mx-boat.x)**2 + (my-boat.y)**2)
                 #Convert to intervals
-                x_err = pos_x_err = random.uniform(self.buoys_position_noise_min, self.buoys_position_noise_max)
-                y_err = pos_y_err = random.uniform(self.buoys_position_noise_min, self.buoys_position_noise_max)
+                x_err = random.uniform(self.buoys_position_noise_min, self.buoys_position_noise_max)
+                y_err = random.uniform(self.buoys_position_noise_min, self.buoys_position_noise_max)
                 a_err = random.uniform(self.buoys_angle_noise_min, self.buoys_angle_noise_max)
                 r_err = random.uniform(self.buoys_range_noise_min, self.buoys_range_noise_max)
                 x_int = to_interval_msg(mx,x_err,name="x")
