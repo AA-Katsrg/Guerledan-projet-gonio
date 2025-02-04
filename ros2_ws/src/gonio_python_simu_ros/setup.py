@@ -29,7 +29,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'gonio_python_simu_ros_node = gonio_python_simu_ros.gonio_python_simu_ros_node:main'
+            'gonio_python_simu_ros_node = gonio_python_simu_ros.gonio_python_simu_ros_node:main',
+            'gonio_python_visualizer_ros_node = gonio_python_simu_ros.gonio_python_visualizer_ros_node:main'
         ],
     },
 )

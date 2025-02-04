@@ -63,10 +63,11 @@ class GonioPythonSimuRosNode(Node):
         self.sea_objects.append(Boat(222, -6, 2, 1.5, 0.25, 4, 1.75))
         self.sea_objects.append(Buoy(333, 0, 2, 0, 1, 0, 0))
         self.sea_objects.append(Buoy(334, -1, -2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(334, 3, 0, 0, 1, 0, 0))
 
         #visuals
         self.simulation = Simulation(self.sea_objects, self.dt, self.k)
-        self.fig, self.ax = init_figure(-self.s, self.s, -self.s, self.s)
+        self.fig, self.ax = init_figure(-self.s, self.s, -self.s, self.s, id="Gonio simulator")
 
         """
         INITIALISATIONS
@@ -86,7 +87,7 @@ class GonioPythonSimuRosNode(Node):
         ROS2 Setup
         """
         # Subscriber
-        self.box_sub = self.create_subscription(BoxMsg,'/it/contracted/position',self.box_position_callback,10)
+        self.box_sub = self.create_subscription(BoxMsgStamped,'/it/contracted/position',self.box_position_callback,10)
 
         # Publisher
         self.box_stamped_position_pub = self.create_publisher(BoxMsgStamped, '/it/position', 10)
@@ -264,6 +265,11 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
     x_min, x_max = x_interval.start, x_interval.end
     y_min, y_max = y_interval.start, y_interval.end
 
+    finite_vals = True
+    if np.isinf([x_min, x_max,y_min, y_max]).any():
+        x_min, x_max,y_min, y_max = -1.0, 1.0, -1.0, 1.0
+        finite_vals = False
+
     # Define the four corners
     corners = [
         (x_min, y_min),
@@ -277,7 +283,10 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
     x_vals, y_vals = zip(*corners)
 
     # Draw the box using simple lines
-    ax.plot(x_vals, y_vals, color=color, linestyle='-', linewidth=1)
+    linestyle = '-' # Solid line
+    if not finite_vals:  # Check if any value in x_vals is infinite
+        linestyle=(0, (5, 5))  # Dashed pattern "- - - -"
+    ax.plot(x_vals, y_vals, color=color, linestyle=linestyle, linewidth=1)
 
     # Draw the center point
     center_x, center_y = (x_min + x_max) / 2, (y_min + y_max) / 2
@@ -293,7 +302,10 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
             y_text += (height/2)+0.30
         elif pos == "down":
             y_text -= (height/2)+0.30
-        ax.text(x_text, y_text, label, fontsize=10, ha='center', va='center', color=color)
+        txt = label
+        if not finite_vals:
+            txt = "inf"
+        ax.text(x_text, y_text, txt, fontsize=10, ha='center', va='center', color=color)
 
 def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, label=None):
     """

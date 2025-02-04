@@ -1,0 +1,64 @@
+WI-FI: M1800-11-sr
+ID Address: 10.0.11.100
+User: labsticc
+Password: labsticc
+
+Workspace robot: ros2_ws_m1800/
+Workspace goniometrie: ros2_ws_gonio_loc
+
+//Update packages in Robot's workspace, launch this on personnal computer (copy all ros2 workspace)
+scp -r src/ labsticc@10.0.11.100:~/ros2_ws_gonio_loc/
+
+
+//ROS2 robots topics
+Published topics:
+ * /clicked_point [geometry_msgs/msg/PointStamped] 1 publisher
+ * /flir_boson/camera_info [sensor_msgs/msg/CameraInfo] 1 publisher
+ * /flir_boson/image [sensor_msgs/msg/Image] 1 publisher
+ * /flir_boson/image/compressed [sensor_msgs/msg/CompressedImage] 1 publisher
+ * /flir_boson/image/compressedDepth [sensor_msgs/msg/CompressedImage] 1 publisher
+ * /flir_boson/image/theora [theora_image_transport/msg/Packet] 1 publisher
+ * /goal_pose [geometry_msgs/msg/PoseStamped] 1 publisher
+ * /hikrobot/camera_info [sensor_msgs/msg/CameraInfo] 1 publisher
+ * /hikrobot/image [sensor_msgs/msg/Image] 1 publisher
+ * /hikrobot/image/compressed [sensor_msgs/msg/CompressedImage] 1 publisher
+ * /hikrobot/image/compressedDepth [sensor_msgs/msg/CompressedImage] 1 publisher
+ * /hikrobot/image/theora [theora_image_transport/msg/Packet] 1 publisher
+ * /imu [sensor_msgs/msg/Imu] 1 publisher
+ * /initialpose [geometry_msgs/msg/PoseWithCovarianceStamped] 1 publisher
+ * /metadata [std_msgs/msg/String] 1 publisher
+ * /nearir_image [sensor_msgs/msg/Image] 1 publisher
+ * /ouster_driver/transition_event [lifecycle_msgs/msg/TransitionEvent] 1 publisher
+ * /parameter_events [rcl_interfaces/msg/ParameterEvent] 10 publishers
+ * /points [sensor_msgs/msg/PointCloud2] 1 publisher
+ * /pylon/image [sensor_msgs/msg/Image] 1 publisher
+ * /pylon/image/compressed [sensor_msgs/msg/CompressedImage] 1 publisher
+ * /range_image [sensor_msgs/msg/Image] 1 publisher
+ * /reflec_image [sensor_msgs/msg/Image] 1 publisher
+ * /rosout [rcl_interfaces/msg/Log] 9 publishers
+ * /sbg/ekf_euler [sbg_driver/msg/SbgEkfEuler] 1 publisher
+ * /sbg/ekf_nav [sbg_driver/msg/SbgEkfNav] 1 publisher
+ * /sbg/ekf_quat [sbg_driver/msg/SbgEkfQuat] 1 publisher
+ * /sbg/gps_hdt [sbg_driver/msg/SbgGpsHdt] 1 publisher
+ * /sbg/gps_pos [sbg_driver/msg/SbgGpsPos] 1 publisher
+ * /sbg/gps_raw [sbg_driver/msg/SbgGpsRaw] 1 publisher
+ * /sbg/gps_vel [sbg_driver/msg/SbgGpsVel] 1 publisher
+ * /sbg/imu_data [sbg_driver/msg/SbgImuData] 1 publisher
+ * /sbg/imu_short [sbg_driver/msg/SbgImuShort] 1 publisher
+ * /sbg/status [sbg_driver/msg/SbgStatus] 1 publisher
+ * /sbg/utc_time [sbg_driver/msg/SbgUtcTime] 1 publisher
+ * /scan [sensor_msgs/msg/LaserScan] 1 publisher
+ * /signal_image [sensor_msgs/msg/Image] 1 publisher
+ * /tf [tf2_msgs/msg/TFMessage] 1 publisher
+ * /tf_static [tf2_msgs/msg/TFMessage] 2 publishers
+
+Subscribed topics:
+ * /flir_boson/image/compressed [sensor_msgs/msg/CompressedImage] 1 subscriber
+ * /hikrobot/image [sensor_msgs/msg/Image] 1 subscriber
+ * /ouster_driver/transition_event [lifecycle_msgs/msg/TransitionEvent] 1 subscriber
+ * /parameter_events [rcl_interfaces/msg/ParameterEvent] 7 subscribers
+ * /points [sensor_msgs/msg/PointCloud2] 1 subscriber
+ * /pylon/image [sensor_msgs/msg/Image] 1 subscriber
+ * /tf [tf2_msgs/msg/TFMessage] 1 subscriber
+ * /tf_static [tf2_msgs/msg/TFMessage] 1 subscriber
+
