@@ -1,0 +1,19 @@
+running egg_info
+writing ../../build/interval_contractor/interval_contractor.egg-info/PKG-INFO
+writing dependency_links to ../../build/interval_contractor/interval_contractor.egg-info/dependency_links.txt
+writing entry points to ../../build/interval_contractor/interval_contractor.egg-info/entry_points.txt
+writing requirements to ../../build/interval_contractor/interval_contractor.egg-info/requires.txt
+writing top-level names to ../../build/interval_contractor/interval_contractor.egg-info/top_level.txt
+reading manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+writing manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/interval_contractor/interval_contractor.egg-info to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor-0.0.0-py3.10.egg-info
+running install_scripts
+Installing interval_contractor_node script to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/interval_contractor
+writing list of installed files to '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log'

@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/get_intervals/get_intervals.egg-info/PKG-INFO
+../../build/get_intervals/get_intervals.egg-info/SOURCES.txt
+../../build/get_intervals/get_intervals.egg-info/dependency_links.txt
+../../build/get_intervals/get_intervals.egg-info/entry_points.txt
+../../build/get_intervals/get_intervals.egg-info/requires.txt
+../../build/get_intervals/get_intervals.egg-info/top_level.txt
+../../build/get_intervals/get_intervals.egg-info/zip-safe
+get_intervals/__init__.py
+get_intervals/converter_node.py
+resource/get_intervals
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py

@@ -1,0 +1,26 @@
+running egg_info
+creating ../../build/get_intervals/get_intervals.egg-info
+writing ../../build/get_intervals/get_intervals.egg-info/PKG-INFO
+writing dependency_links to ../../build/get_intervals/get_intervals.egg-info/dependency_links.txt
+writing entry points to ../../build/get_intervals/get_intervals.egg-info/entry_points.txt
+writing requirements to ../../build/get_intervals/get_intervals.egg-info/requires.txt
+writing top-level names to ../../build/get_intervals/get_intervals.egg-info/top_level.txt
+writing manifest file '../../build/get_intervals/get_intervals.egg-info/SOURCES.txt'
+reading manifest file '../../build/get_intervals/get_intervals.egg-info/SOURCES.txt'
+writing manifest file '../../build/get_intervals/get_intervals.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build
+creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build/lib
+creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build/lib/get_intervals
+copying get_intervals/converter_node.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build/lib/get_intervals
+copying get_intervals/__init__.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build/lib/get_intervals
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/python3.10/site-packages/get_intervals-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/get_intervals/get_intervals.egg-info to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/python3.10/site-packages/get_intervals-0.0.0-py3.10.egg-info
+running install_scripts
+Installing converter_node script to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/get_intervals
+writing list of installed files to '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/install.log'

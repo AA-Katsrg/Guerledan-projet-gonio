@@ -1,0 +1,14 @@
+msg/Box.idl
+msg/Box.msg
+msg/BoxListStamped.idl
+msg/BoxListStamped.msg
+msg/BoxStamped.idl
+msg/BoxStamped.msg
+msg/Interval.idl
+msg/Interval.msg
+msg/IntervalStamped.idl
+msg/IntervalStamped.msg
+msg/Tube.idl
+msg/Tube.msg
+msg/TubeStamped.idl
+msg/TubeStamped.msg

@@ -1,0 +1,31 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interval_analysis_interfaces/msg/Tube.msg
+// generated code does not contain a copyright notice
+
+#include "interval_analysis_interfaces/msg/Box.idl"
+#include "interval_analysis_interfaces/msg/Interval.idl"
+
+module interval_analysis_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "Tube.msg" "\n"
+      "ROS2 message definition for a collection of boxes with temporal metadata, without a header for timestamp and frame reference")
+    struct Tube {
+      @verbatim (language="comment", text=
+        "Optionnal")
+      string name;
+
+      @verbatim (language="comment", text=
+        "List of boxes")
+      sequence<interval_analysis_interfaces::msg::Box> boxes;
+
+      @verbatim (language="comment", text=
+        "Time domain start and end (e.g., for time-series or interval analysis)")
+      interval_analysis_interfaces::msg::Interval t_domain;
+
+      @verbatim (language="comment", text=
+        "Time step or interval duration")
+      double dt;
+    };
+  };
+};

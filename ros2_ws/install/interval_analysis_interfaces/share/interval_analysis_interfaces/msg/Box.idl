@@ -1,0 +1,22 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interval_analysis_interfaces/msg/Box.msg
+// generated code does not contain a copyright notice
+
+#include "interval_analysis_interfaces/msg/Interval.idl"
+
+module interval_analysis_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "Box.msg" "\n"
+      "ROS2 message definition for a box (Interval vector) represented by a list of intervals without a header for timestamp and frame reference")
+    struct Box {
+      @verbatim (language="comment", text=
+        "Optionnal")
+      string name;
+
+      @verbatim (language="comment", text=
+        "List of intervals defining the box (e.g., spatial bounds, time intervals)")
+      sequence<interval_analysis_interfaces::msg::Interval> intervals;
+    };
+  };
+};

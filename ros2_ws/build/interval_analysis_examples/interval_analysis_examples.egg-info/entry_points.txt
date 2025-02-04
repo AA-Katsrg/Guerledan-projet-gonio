@@ -1,0 +1,4 @@
+[console_scripts]
+publisher_node = interval_analysis_examples.publisher_node:main
+subscriber_node = interval_analysis_examples.subscriber_node:main
+

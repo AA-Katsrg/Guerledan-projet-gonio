@@ -1,0 +1,24 @@
+[3.135s] Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_contractor build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log --single-version-externally-managed install_data
+[3.666s] running egg_info
+[3.668s] writing ../../build/interval_contractor/interval_contractor.egg-info/PKG-INFO
+[3.668s] writing dependency_links to ../../build/interval_contractor/interval_contractor.egg-info/dependency_links.txt
+[3.669s] writing entry points to ../../build/interval_contractor/interval_contractor.egg-info/entry_points.txt
+[3.669s] writing requirements to ../../build/interval_contractor/interval_contractor.egg-info/requires.txt
+[3.670s] writing top-level names to ../../build/interval_contractor/interval_contractor.egg-info/top_level.txt
+[3.674s] reading manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+[3.676s] writing manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+[3.677s] running build
+[3.677s] running build_py
+[3.677s] copying interval_contractor/interval_contractor.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build/lib/interval_contractor
+[3.678s] running install
+[3.679s] running install_lib
+[3.681s] copying /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build/lib/interval_contractor/interval_contractor.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor
+[3.682s] byte-compiling /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor/interval_contractor.py to interval_contractor.cpython-310.pyc
+[3.686s] running install_data
+[3.686s] running install_egg_info
+[3.690s] removing '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor-0.0.0-py3.10.egg-info' (and everything under it)
+[3.691s] Copying ../../build/interval_contractor/interval_contractor.egg-info to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor-0.0.0-py3.10.egg-info
+[3.692s] running install_scripts
+[3.738s] Installing interval_contractor_node script to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/interval_contractor
+[3.739s] writing list of installed files to '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log'
+[3.805s] Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor' returned '0': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_contractor build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log --single-version-externally-managed install_data
