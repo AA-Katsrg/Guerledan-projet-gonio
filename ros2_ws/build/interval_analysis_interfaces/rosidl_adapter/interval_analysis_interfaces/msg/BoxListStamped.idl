@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interval_analysis_interfaces/msg/BoxListStamped.msg
+// generated code does not contain a copyright notice
+
+#include "interval_analysis_interfaces/msg/Box.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interval_analysis_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "BoxStampedList.msg" "\n"
+      "ROS2 message definition for a list of box (Interval vector)")
+    struct BoxListStamped {
+      @verbatim (language="comment", text=
+        "Standard header for timestamps and frame reference")
+      std_msgs::msg::Header header;
+
+      string name;
+
+      @verbatim (language="comment", text=
+        "List of boxes")
+      sequence<interval_analysis_interfaces::msg::Box> boxes;
+    };
+  };
+};

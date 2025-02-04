@@ -1,0 +1,387 @@
+[0.070s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build']
+[0.070s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x7da506263a30>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7da506263400>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7da506263400>>, mixin_verb=('build',))
+[0.183s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.183s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.183s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.183s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.183s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.183s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.183s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws'
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.183s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.184s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.184s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extensions ['ignore', 'ignore_ament_install']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extension 'ignore_ament_install'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extensions ['colcon_pkg']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extension 'colcon_pkg'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extensions ['colcon_meta']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extension 'colcon_meta'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extensions ['ros']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/get_intervals) by extension 'ros'
+[0.194s] DEBUG:colcon.colcon_core.package_identification:Package 'src/get_intervals' with type 'ros.ament_python' and name 'get_intervals'
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extensions ['ignore', 'ignore_ament_install']
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extension 'ignore'
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extension 'ignore_ament_install'
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extensions ['colcon_pkg']
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extension 'colcon_pkg'
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extensions ['colcon_meta']
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extension 'colcon_meta'
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extensions ['ros']
+[0.194s] Level 1:colcon.colcon_core.package_identification:_identify(src/gonio_python_simu_ros) by extension 'ros'
+[0.195s] DEBUG:colcon.colcon_core.package_identification:Package 'src/gonio_python_simu_ros' with type 'ros.ament_python' and name 'gonio_python_simu_ros'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extensions ['ignore', 'ignore_ament_install']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extension 'ignore'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extension 'ignore_ament_install'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extensions ['colcon_pkg']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extension 'colcon_pkg'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extensions ['colcon_meta']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extension 'colcon_meta'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extensions ['ros']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_examples) by extension 'ros'
+[0.195s] DEBUG:colcon.colcon_core.package_identification:Package 'src/interval_analysis_examples' with type 'ros.ament_python' and name 'interval_analysis_examples'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extensions ['ignore', 'ignore_ament_install']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extension 'ignore'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extension 'ignore_ament_install'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extensions ['colcon_pkg']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extension 'colcon_pkg'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extensions ['colcon_meta']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extension 'colcon_meta'
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extensions ['ros']
+[0.195s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_analysis_interfaces) by extension 'ros'
+[0.196s] DEBUG:colcon.colcon_core.package_identification:Package 'src/interval_analysis_interfaces' with type 'ros.ament_cmake' and name 'interval_analysis_interfaces'
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extensions ['ignore', 'ignore_ament_install']
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extension 'ignore'
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extension 'ignore_ament_install'
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extensions ['colcon_pkg']
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extension 'colcon_pkg'
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extensions ['colcon_meta']
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extension 'colcon_meta'
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extensions ['ros']
+[0.196s] Level 1:colcon.colcon_core.package_identification:_identify(src/interval_contractor) by extension 'ros'
+[0.204s] DEBUG:colcon.colcon_core.package_identification:Package 'src/interval_contractor' with type 'ros.ament_python' and name 'interval_contractor'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extensions ['ignore', 'ignore_ament_install']
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'ignore'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'ignore_ament_install'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extensions ['colcon_pkg']
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'colcon_pkg'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extensions ['colcon_meta']
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'colcon_meta'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extensions ['ros']
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'ros'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extensions ['cmake', 'python']
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'cmake'
+[0.204s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'python'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extensions ['python_setup_py']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator) by extension 'python_setup_py'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extensions ['ignore', 'ignore_ament_install']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'ignore'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'ignore_ament_install'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extensions ['colcon_pkg']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'colcon_pkg'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extensions ['colcon_meta']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'colcon_meta'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extensions ['ros']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'ros'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extensions ['cmake', 'python']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'cmake'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'python'
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extensions ['python_setup_py']
+[0.205s] Level 1:colcon.colcon_core.package_identification:_identify(src/python_simulator/__pycache__) by extension 'python_setup_py'
+[0.205s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.205s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.205s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.205s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.205s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.219s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.219s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.220s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 5 installed packages in /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install
+[0.220s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 6 installed packages in /home/basile/Documents/ros2_ws/install
+[0.221s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 11 installed packages in /home/basile/Documents/s4/workspaceros/install
+[0.222s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 302 installed packages in /opt/ros/humble
+[0.223s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'cmake_args' from command line to 'None'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'cmake_target' from command line to 'None'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'cmake_clean_cache' from command line to 'False'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'cmake_clean_first' from command line to 'False'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'cmake_force_configure' from command line to 'False'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'ament_cmake_args' from command line to 'None'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'catkin_cmake_args' from command line to 'None'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_interfaces' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.247s] DEBUG:colcon.colcon_core.verb:Building package 'interval_analysis_interfaces' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces', 'merge_install': False, 'path': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_interfaces', 'symlink_install': False, 'test_result_base': None}
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'cmake_args' from command line to 'None'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'cmake_target' from command line to 'None'
+[0.247s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'cmake_force_configure' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'ament_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'catkin_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'get_intervals' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.248s] DEBUG:colcon.colcon_core.verb:Building package 'get_intervals' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals', 'merge_install': False, 'path': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/get_intervals', 'symlink_install': False, 'test_result_base': None}
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'cmake_target' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'cmake_force_configure' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'ament_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'catkin_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'gonio_python_simu_ros' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.248s] DEBUG:colcon.colcon_core.verb:Building package 'gonio_python_simu_ros' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros', 'merge_install': False, 'path': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/gonio_python_simu_ros', 'symlink_install': False, 'test_result_base': None}
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'cmake_target' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'cmake_force_configure' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'ament_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'catkin_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_analysis_examples' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.248s] DEBUG:colcon.colcon_core.verb:Building package 'interval_analysis_examples' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples', 'merge_install': False, 'path': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_examples', 'symlink_install': False, 'test_result_base': None}
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'cmake_target' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'cmake_force_configure' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'ament_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'catkin_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'interval_contractor' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.249s] DEBUG:colcon.colcon_core.verb:Building package 'interval_contractor' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor', 'merge_install': False, 'path': '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor', 'symlink_install': False, 'test_result_base': None}
+[0.249s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.250s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.250s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_interfaces' with build type 'ament_cmake'
+[0.250s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_interfaces'
+[0.251s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.251s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.251s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.258s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals:/home/basile/Documents/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/s4/workspaceros/install/my_package:/opt/ros/humble /usr/bin/cmake --build /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces -- -j8 -l8
+[0.518s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals:/home/basile/Documents/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/s4/workspaceros/install/my_package:/opt/ros/humble /usr/bin/cmake --build /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces -- -j8 -l8
+[0.654s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals:/home/basile/Documents/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/s4/workspaceros/install/my_package:/opt/ros/humble /usr/bin/cmake --install /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces
+[0.696s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(interval_analysis_interfaces)
+[0.696s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals:/home/basile/Documents/ros2_ws/install/interval_analysis_examples:/home/basile/Documents/s4/workspaceros/install/my_package:/opt/ros/humble /usr/bin/cmake --install /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_interfaces
+[0.698s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces' for CMake module files
+[0.698s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces' for CMake config files
+[0.698s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_analysis_interfaces', 'cmake_prefix_path')
+[0.699s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/cmake_prefix_path.ps1'
+[0.699s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/cmake_prefix_path.dsv'
+[0.699s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/cmake_prefix_path.sh'
+[0.700s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/lib'
+[0.700s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_analysis_interfaces', 'ld_library_path_lib')
+[0.700s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/ld_library_path_lib.ps1'
+[0.700s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/ld_library_path_lib.dsv'
+[0.700s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/ld_library_path_lib.sh'
+[0.701s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/bin'
+[0.701s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/lib/pkgconfig/interval_analysis_interfaces.pc'
+[0.701s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/lib/python3.10/site-packages'
+[0.701s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/bin'
+[0.701s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.ps1'
+[0.702s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.dsv'
+[0.702s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.sh'
+[0.702s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.bash'
+[0.703s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.zsh'
+[0.703s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/colcon-core/packages/interval_analysis_interfaces)
+[0.833s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(interval_analysis_interfaces)
+[0.833s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces' for CMake module files
+[0.834s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces' for CMake config files
+[0.834s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_analysis_interfaces', 'cmake_prefix_path')
+[0.834s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/cmake_prefix_path.ps1'
+[0.834s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/cmake_prefix_path.dsv'
+[0.834s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/cmake_prefix_path.sh'
+[0.835s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/lib'
+[0.835s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_analysis_interfaces', 'ld_library_path_lib')
+[0.835s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/ld_library_path_lib.ps1'
+[0.835s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/ld_library_path_lib.dsv'
+[0.835s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/hook/ld_library_path_lib.sh'
+[0.836s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/bin'
+[0.836s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/lib/pkgconfig/interval_analysis_interfaces.pc'
+[0.836s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/lib/python3.10/site-packages'
+[0.836s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/bin'
+[0.836s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.ps1'
+[0.836s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.dsv'
+[0.837s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.sh'
+[0.837s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.bash'
+[0.837s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/interval_analysis_interfaces/package.zsh'
+[0.837s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_interfaces/share/colcon-core/packages/interval_analysis_interfaces)
+[0.838s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/get_intervals' with build type 'ament_python'
+[0.838s] Level 1:colcon.colcon_core.shell:create_environment_hook('get_intervals', 'ament_prefix_path')
+[0.838s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/hook/ament_prefix_path.ps1'
+[0.838s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/hook/ament_prefix_path.dsv'
+[0.838s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/hook/ament_prefix_path.sh'
+[0.839s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.839s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.841s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/gonio_python_simu_ros' with build type 'ament_python'
+[0.842s] Level 1:colcon.colcon_core.shell:create_environment_hook('gonio_python_simu_ros', 'ament_prefix_path')
+[0.842s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/hook/ament_prefix_path.ps1'
+[0.842s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/hook/ament_prefix_path.dsv'
+[0.842s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/hook/ament_prefix_path.sh'
+[0.842s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.843s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.845s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_examples' with build type 'ament_python'
+[0.845s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_analysis_examples', 'ament_prefix_path')
+[0.845s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/hook/ament_prefix_path.ps1'
+[0.846s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/hook/ament_prefix_path.dsv'
+[0.846s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/hook/ament_prefix_path.sh'
+[0.846s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.846s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.849s] INFO:colcon.colcon_ros.task.ament_python.build:Building ROS package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor' with build type 'ament_python'
+[0.849s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_contractor', 'ament_prefix_path')
+[0.849s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/ament_prefix_path.ps1'
+[0.850s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/ament_prefix_path.dsv'
+[0.850s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/ament_prefix_path.sh'
+[0.851s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.851s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.033s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/get_intervals'
+[1.033s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.033s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.213s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/gonio_python_simu_ros'
+[1.213s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.213s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.395s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_examples'
+[1.395s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.395s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.573s] INFO:colcon.colcon_core.task.python.build:Building Python package in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor'
+[1.574s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.574s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.936s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/get_intervals': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/get_intervals build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/install.log --single-version-externally-managed install_data
+[1.939s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/gonio_python_simu_ros': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gonio_python_simu_ros build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros/install.log --single-version-externally-managed install_data
+[1.945s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_examples': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_analysis_examples build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/install.log --single-version-externally-managed install_data
+[1.949s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_contractor build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log --single-version-externally-managed install_data
+[2.281s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals' for CMake module files
+[2.282s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/get_intervals' returned '0': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/get_intervals build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/get_intervals/install.log --single-version-externally-managed install_data
+[2.282s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals' for CMake config files
+[2.282s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib'
+[2.283s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/bin'
+[2.283s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/pkgconfig/get_intervals.pc'
+[2.283s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/lib/python3.10/site-packages'
+[2.283s] Level 1:colcon.colcon_core.shell:create_environment_hook('get_intervals', 'pythonpath')
+[2.283s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/hook/pythonpath.ps1'
+[2.284s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/hook/pythonpath.dsv'
+[2.284s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/hook/pythonpath.sh'
+[2.284s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/bin'
+[2.285s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(get_intervals)
+[2.285s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/package.ps1'
+[2.285s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/package.dsv'
+[2.286s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/package.sh'
+[2.286s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/package.bash'
+[2.286s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/get_intervals/package.zsh'
+[2.286s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/get_intervals/share/colcon-core/packages/get_intervals)
+[2.287s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros' for CMake module files
+[2.287s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros' for CMake config files
+[2.288s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/gonio_python_simu_ros' returned '0': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/gonio_python_simu_ros build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/gonio_python_simu_ros/install.log --single-version-externally-managed install_data
+[2.288s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/lib'
+[2.288s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/bin'
+[2.288s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/lib/pkgconfig/gonio_python_simu_ros.pc'
+[2.288s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/lib/python3.10/site-packages'
+[2.288s] Level 1:colcon.colcon_core.shell:create_environment_hook('gonio_python_simu_ros', 'pythonpath')
+[2.288s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/hook/pythonpath.ps1'
+[2.289s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/hook/pythonpath.dsv'
+[2.289s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/hook/pythonpath.sh'
+[2.290s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/bin'
+[2.290s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(gonio_python_simu_ros)
+[2.290s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/package.ps1'
+[2.291s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/package.dsv'
+[2.291s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/package.sh'
+[2.291s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/package.bash'
+[2.291s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/gonio_python_simu_ros/package.zsh'
+[2.292s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/gonio_python_simu_ros/share/colcon-core/packages/gonio_python_simu_ros)
+[2.292s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor' for CMake module files
+[2.293s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor' for CMake config files
+[2.293s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor' returned '0': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_contractor build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log --single-version-externally-managed install_data
+[2.293s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib'
+[2.293s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/bin'
+[2.294s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_contractor', 'path')
+[2.294s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/path.ps1'
+[2.294s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/path.dsv'
+[2.294s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/path.sh'
+[2.294s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/pkgconfig/interval_contractor.pc'
+[2.295s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages'
+[2.295s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_contractor', 'pythonpath')
+[2.295s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/pythonpath.ps1'
+[2.295s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/pythonpath.dsv'
+[2.296s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/pythonpath.sh'
+[2.296s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/bin'
+[2.296s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_contractor', 'pythonscriptspath')
+[2.296s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/pythonscriptspath.ps1'
+[2.296s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/pythonscriptspath.dsv'
+[2.297s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/hook/pythonscriptspath.sh'
+[2.297s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(interval_contractor)
+[2.297s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/package.ps1'
+[2.297s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/package.dsv'
+[2.298s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/package.sh'
+[2.298s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/package.bash'
+[2.298s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/interval_contractor/package.zsh'
+[2.298s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/colcon-core/packages/interval_contractor)
+[2.299s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples' for CMake module files
+[2.300s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_analysis_examples' returned '0': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_analysis_examples build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/install.log --single-version-externally-managed install_data
+[2.300s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples' for CMake config files
+[2.300s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib'
+[2.300s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/bin'
+[2.300s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/pkgconfig/interval_analysis_examples.pc'
+[2.300s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/python3.10/site-packages'
+[2.300s] Level 1:colcon.colcon_core.shell:create_environment_hook('interval_analysis_examples', 'pythonpath')
+[2.300s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/hook/pythonpath.ps1'
+[2.301s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/hook/pythonpath.dsv'
+[2.301s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/hook/pythonpath.sh'
+[2.301s] Level 1:colcon.colcon_core.environment:checking '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/bin'
+[2.301s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(interval_analysis_examples)
+[2.301s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/package.ps1'
+[2.302s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/package.dsv'
+[2.302s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/package.sh'
+[2.302s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/package.bash'
+[2.303s] INFO:colcon.colcon_core.shell:Creating package script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/interval_analysis_examples/package.zsh'
+[2.303s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/share/colcon-core/packages/interval_analysis_examples)
+[2.303s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.303s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.303s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.303s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.307s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.307s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.307s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.317s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.318s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/local_setup.ps1'
+[2.319s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/_local_setup_util_ps1.py'
+[2.320s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/setup.ps1'
+[2.321s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/local_setup.sh'
+[2.322s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/_local_setup_util_sh.py'
+[2.322s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/setup.sh'
+[2.323s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/local_setup.bash'
+[2.323s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/setup.bash'
+[2.324s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/local_setup.zsh'
+[2.325s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/setup.zsh'

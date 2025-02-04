@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interval_analysis_interfaces/msg/Interval.msg
+// generated code does not contain a copyright notice
+
+
+module interval_analysis_interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "Interval.msg" "\n"
+      "ROS2 message definition for interval analysis without a header for timestamp and frame reference")
+    struct Interval {
+      @verbatim (language="comment", text=
+        "Optionnal")
+      string name;
+
+      @verbatim (language="comment", text=
+        "Start of the interval (e.g., time, range lower bound)")
+      double start;
+
+      @verbatim (language="comment", text=
+        "End of the interval (e.g., time, range upper bound)")
+      double end;
+    };
+  };
+};

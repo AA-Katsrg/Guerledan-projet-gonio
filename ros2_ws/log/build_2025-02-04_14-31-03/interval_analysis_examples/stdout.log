@@ -1,0 +1,28 @@
+running egg_info
+creating ../../build/interval_analysis_examples/interval_analysis_examples.egg-info
+writing ../../build/interval_analysis_examples/interval_analysis_examples.egg-info/PKG-INFO
+writing dependency_links to ../../build/interval_analysis_examples/interval_analysis_examples.egg-info/dependency_links.txt
+writing entry points to ../../build/interval_analysis_examples/interval_analysis_examples.egg-info/entry_points.txt
+writing requirements to ../../build/interval_analysis_examples/interval_analysis_examples.egg-info/requires.txt
+writing top-level names to ../../build/interval_analysis_examples/interval_analysis_examples.egg-info/top_level.txt
+writing manifest file '../../build/interval_analysis_examples/interval_analysis_examples.egg-info/SOURCES.txt'
+reading manifest file '../../build/interval_analysis_examples/interval_analysis_examples.egg-info/SOURCES.txt'
+writing manifest file '../../build/interval_analysis_examples/interval_analysis_examples.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build
+creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build/lib
+creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build/lib/interval_analysis_examples
+copying interval_analysis_examples/publisher_node.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build/lib/interval_analysis_examples
+copying interval_analysis_examples/subscriber_node.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build/lib/interval_analysis_examples
+copying interval_analysis_examples/__init__.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/build/lib/interval_analysis_examples
+running install
+running install_lib
+running install_data
+running install_egg_info
+removing '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/python3.10/site-packages/interval_analysis_examples-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/interval_analysis_examples/interval_analysis_examples.egg-info to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/python3.10/site-packages/interval_analysis_examples-0.0.0-py3.10.egg-info
+running install_scripts
+Installing publisher_node script to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/interval_analysis_examples
+Installing subscriber_node script to /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_analysis_examples/lib/interval_analysis_examples
+writing list of installed files to '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_analysis_examples/install.log'

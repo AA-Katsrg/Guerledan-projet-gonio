@@ -139,6 +139,7 @@ class GonioPythonSimuRosNode(Node):
     def box_position_callback(self, msg):
         self.box_position_contracted = msg
 
+
     def simulate(self):
         t_now = self.get_clock().now().nanoseconds * 1e-9  # Get current time in seconds
         t_sim = t_now - self.t0
@@ -175,6 +176,9 @@ class GonioPythonSimuRosNode(Node):
         self.box_stamped_velocity = get_box(float_to_time_msg(t_sim),"map",spd_x, spd_y, spd_z,spd_x_err, spd_y_err, spd_z_err,"speed")
         #landmarks
         landmarks_box = [] #Box list with intervals (Angle,range) for each
+        
+        self.get_logger().info(f"Interval contracte reçus: {self.box_position_contracted}")
+        
         for obj in self.sea_objects[1:]: #we ignore first object, as it is the boat
             if obj.in_area:
                 #get position

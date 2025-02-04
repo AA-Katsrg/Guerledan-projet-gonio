@@ -1,0 +1,9 @@
+running egg_info
+creating ../../build/interval_contractor/interval_contractor.egg-info
+writing ../../build/interval_contractor/interval_contractor.egg-info/PKG-INFO
+writing dependency_links to ../../build/interval_contractor/interval_contractor.egg-info/dependency_links.txt
+writing entry points to ../../build/interval_contractor/interval_contractor.egg-info/entry_points.txt
+writing requirements to ../../build/interval_contractor/interval_contractor.egg-info/requires.txt
+writing top-level names to ../../build/interval_contractor/interval_contractor.egg-info/top_level.txt
+writing manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+error: package directory 'interval_contractor' does not exist

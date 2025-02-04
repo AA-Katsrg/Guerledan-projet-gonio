@@ -1,0 +1,28 @@
+[0.451s] Invoking command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_contractor build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log --single-version-externally-managed install_data
+[0.620s] running egg_info
+[0.621s] writing ../../build/interval_contractor/interval_contractor.egg-info/PKG-INFO
+[0.621s] writing dependency_links to ../../build/interval_contractor/interval_contractor.egg-info/dependency_links.txt
+[0.621s] writing entry points to ../../build/interval_contractor/interval_contractor.egg-info/entry_points.txt
+[0.621s] writing requirements to ../../build/interval_contractor/interval_contractor.egg-info/requires.txt
+[0.621s] writing top-level names to ../../build/interval_contractor/interval_contractor.egg-info/top_level.txt
+[0.622s] package init file 'interval_contractor/__init__.py' not found (or not a regular file)
+[0.622s] reading manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+[0.623s] writing manifest file '../../build/interval_contractor/interval_contractor.egg-info/SOURCES.txt'
+[0.623s] running build
+[0.623s] running build_py
+[0.623s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build
+[0.623s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build/lib
+[0.623s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build/lib/interval_contractor
+[0.623s] copying interval_contractor/interface_codac.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build/lib/interval_contractor
+[0.623s] running install
+[0.623s] running install_lib
+[0.624s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor
+[0.624s] copying /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build/lib/interval_contractor/interface_codac.py -> /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor
+[0.625s] byte-compiling /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages/interval_contractor/interface_codac.py to interface_codac.cpython-310.pyc
+[0.625s] running install_data
+[0.625s] error: can't copy 'resource/interval_contractor': doesn't exist or not a regular file
+[0.625s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share
+[0.625s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/ament_index
+[0.625s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/ament_index/resource_index
+[0.625s] creating /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/share/ament_index/resource_index/packages
+[1.174s] Invoked command in '/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/src/interval_contractor' returned '1': PYTHONPATH=/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/install/interval_contractor/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/interval_contractor build --build-base /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/build install --record /home/basile/Documents/3a/guerledan/Guerledan-projet-gonio/ros2_ws/build/interval_contractor/install.log --single-version-externally-managed install_data
