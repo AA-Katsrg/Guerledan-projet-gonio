@@ -77,6 +77,12 @@ class ConverterNode(Node):
         self.velocity_gps_msg = None
         self.box_velocity_gps_msg = None
 
+        """
+        Reference GPS Pose publication
+        """
+        # Publisher for reference GPS pose
+        self.ref_pose_pub = self.create_publisher(SbgGpsPos, '/it/ref_pose', 10)
+
     """
     Subscribers to raw data
     """
@@ -102,7 +108,9 @@ class ConverterNode(Node):
             self.gps_ref_pose = msg
         self.box_position_gps_msg = get_box_position_gps(self.position_gps_msg,self.gps_ref_pose,self.use_gps_pos)
         self.box_stamped_position_gps_pub.publish(self.box_position_gps_msg)
+        self.ref_pose_pub.publish(self.ref_pose)
         if self.debug:
+            self.get_logger().info(f"Published Reference GPS Pose: {self.ref_pose}")
             self.get_logger().info(f"Received GPS Position: {msg}")
             self.get_logger().info(f"Sent Box GPS Position: {format_box(self.box_position_gps_msg,3)}")
 
@@ -154,18 +162,36 @@ def get_box_position_gps(msg,ref_pose_msg,use_gps=True):
     else:
         return get_box(msg.header.stamp,msg.header.frame_id,0.0,0.0,0.0,float('inf'),float('inf'),float('inf'),name="position")
 
-def get_ref_dist(long,lat,long_ref,lat_ref):
-    x, y = convert_geo_to_cartesian(long,lat)
-    x_ref, y_ref = convert_geo_to_cartesian(long_ref,lat_ref)
-    x_off = x - x_ref
-    y_off = y - y_ref
-    return x_off, y_off
+def get_ref_dist(long, lat, long_ref, lat_ref):
+    """
+    Compute the local Cartesian (East, North) distance from a reference GPS coordinate.
 
-def convert_geo_to_cartesian(λb,Φb,Re_cos = 4249115.07,Rn = 6371093.92):
-    #λb, Φb = longitude, latitude
-    east = λb*Re_cos
-    north = Φb*Rn
-    return north, east #(x,y)
+    Args:
+        long (float): Current longitude in degrees.
+        lat (float): Current latitude in degrees.
+        long_ref (float): Reference longitude in degrees.
+        lat_ref (float): Reference latitude in degrees.
+
+    Returns:
+        tuple: (x_offset, y_offset) in meters.
+    """
+    # Convert degrees to radians
+    long, lat = np.deg2rad(long), np.deg2rad(lat)
+    long_ref, lat_ref = np.deg2rad(long_ref), np.deg2rad(lat_ref)
+
+    # Earth radii (WGS84)
+    R_E = 6378137.0  # Equatorial radius in meters
+    R_N = 6356752.3  # Polar radius in meters
+
+    # Compute differences
+    d_long = long - long_ref
+    d_lat = lat - lat_ref
+
+    # Compute local Cartesian coordinates (East, North)
+    x_off = d_long * np.cos(lat_ref) * R_E  # East offset (meters)
+    y_off = d_lat * R_N                     # North offset (meters)
+
+    return x_off, y_off
 
 def get_box_velocity_dvl(msg):
     # Process DVL velocity message and return a BoxMsgStamped
