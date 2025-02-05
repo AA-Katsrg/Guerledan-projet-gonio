@@ -177,7 +177,7 @@ class GonioPythonSimuRosNode(Node):
         #landmarks
         landmarks_box = [] #Box list with intervals (Angle,range) for each
         
-        self.get_logger().info(f"Interval contracte reçus: {self.box_position_contracted}")
+        #self.get_logger().info(f"Interval contracte reçus: {self.box_position_contracted}")
         
         for obj in self.sea_objects[1:]: #we ignore first object, as it is the boat
             if obj.in_area:

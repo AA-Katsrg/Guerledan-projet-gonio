@@ -32,6 +32,7 @@ class GonioPythonVisualizerRosNode(Node):
         #visuals
         self.s = 7.0 #will be updated depending on objects positions
         self.fig, self.ax = init_figure(-self.s, self.s, -self.s, self.s, id="Gonio Visualizer")
+        self.last_boat = Boat(222, 0.0, 0.0, 0.0, 0.0, 4, 1.75) #keep in mind last robot in case no more data
 
         """
         Dynamic data (Updated by subscribers)
@@ -103,7 +104,8 @@ class GonioPythonVisualizerRosNode(Node):
         for i in range(len(draw_box_list)):
             if draw_box_list[i] is not None:
                 if i == 0: #should correspond to the boat position
-                    self.add_boat_from_box(draw_box_list[i],self.box_stamped_orientation)
+                    self.add_boat_from_box(draw_box_list[i],self.box_stamped_orientation,self.last_boat)
+                    self.last_boat = self.sea_objects[0]
                 elif i > 1: #we ignore contracted boat position
                     self.add_buoy_from_box(draw_box_list[i])
 
@@ -140,17 +142,24 @@ class GonioPythonVisualizerRosNode(Node):
         center_y = y_int.start + (y_int.end - y_int.start)/2
         self.sea_objects.append(Buoy(333, center_x, center_y, 0, 1, 0, 0))
 
-    def add_boat_from_box(self,box_pos,box_orientation):
+    def add_boat_from_box(self,box_pos,box_orientation,last_boat):
         #get position (center of the box)
         x_int = [interval for interval in box_pos.intervals if interval.name == "x"][0]
         center_x = x_int.start + (x_int.end - x_int.start)/2
         y_int = [interval for interval in box_pos.intervals if interval.name == "y"][0]
         center_y = y_int.start + (y_int.end - y_int.start)/2
+        if np.isinf([box_pos.intervals[0].start, box_pos.intervals[0].end]).any():
+            center_x = last_boat.x
+        if np.isinf([box_pos.intervals[1].start, box_pos.intervals[1].end]).any():
+            center_y = last_boat.y
         #get heading (center of interval)
         center_angle = 0.0
         if box_orientation is not None:
             angle_int = [interval for interval in box_orientation.intervals if interval.name == "z"][0]
-            center_angle = angle_int.start + (angle_int.end - angle_int.start)/2
+            if np.isinf([angle_int.start, angle_int.end]).any():
+                center_angle = last_boat.theta
+            else:
+                center_angle = angle_int.start + (angle_int.end - angle_int.start)/2
         self.sea_objects.append(Boat(222, center_x, center_y, 0.0, center_angle, 4, 1.75))
 
 def format_box(box_msg,precision):
