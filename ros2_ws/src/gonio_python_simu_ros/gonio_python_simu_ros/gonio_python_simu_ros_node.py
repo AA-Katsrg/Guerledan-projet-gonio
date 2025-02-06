@@ -37,8 +37,8 @@ class GonioPythonSimuRosNode(Node):
         simu_rate = max([position_rate,orientation_rate,velocity_rate,landmarks_rate])+1.0 #faster than fastest sensor
 
         #intervals noise
-        self.boat_position_noise_min = 0 #0.9
-        self.boat_position_noise_max = 0 #1.0
+        self.boat_position_noise_min = 0.0 #0.9
+        self.boat_position_noise_max = 0.0 #1.0
         self.boat_orientation_noise_min = 0.5
         self.boat_orientation_noise_max = 0.55
         self.boat_velocity_noise_min = 0.01
@@ -47,8 +47,8 @@ class GonioPythonSimuRosNode(Node):
         self.buoys_angle_noise_max = 0.0
         self.buoys_range_noise_min = 0.2
         self.buoys_range_noise_max = 0.25
-        self.buoys_position_noise_min = 0
-        self.buoys_position_noise_max = 0
+        self.buoys_position_noise_min = 0.1
+        self.buoys_position_noise_max = 0.15
 
         #parameters
         self.s = 7.0
@@ -198,7 +198,7 @@ class GonioPythonSimuRosNode(Node):
                 #get position
                 mx, my = obj.x, obj.y
                 #get angle 
-                a = arctan2(my-boat.y,mx-boat.x)
+                a = sawtooth(arctan2(my-boat.y,mx-boat.x)-boat.theta)
                 #get range
                 r = sqrt((mx-boat.x)**2 + (my-boat.y)**2)
                 #Convert to intervals
@@ -233,7 +233,7 @@ class GonioPythonSimuRosNode(Node):
         draw_box_lines(self.ax, self.box_stamped_position, color='red', label="raw_boat")
         for box in landmarks_box:
             draw_box_lines(self.ax, box, color='red', label="raw_"+box.name)
-            draw_fov_lines(self.ax, boat.x, boat.y, box, color='red', label="raw_"+box.name)
+            draw_fov_lines(self.ax, boat.x, boat.y, box, color='red', label="raw_"+box.name, off_a = boat.theta)
 
         #Draw received contracted intervals
         #ros2 topic pub /it/contracted/position interval_analysis_interfaces/msg/Box "{name: 'test_box', intervals: [{name: 'x', start: -1.0, end: 1.0}, {name: 'y', start: -2.0, end: 2.0}]}"
@@ -265,7 +265,7 @@ def format_box(box_msg,precision):
     """Format a BoxMsg or BoxStampedMsg as a list of [start, end] pairs."""
     return [[round(interval.start,precision), round(interval.end,precision)] for interval in box_msg.intervals]
 
-def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
+def draw_box_lines(ax, box_msg, color='red', label=None, pos="top", backup=None):
     """
     Draws a square box using simple lines based on a BoxMsg.
 
@@ -284,8 +284,8 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
     y_min, y_max = y_interval.start, y_interval.end
 
     finite_vals = True
-    if np.isinf([x_min, x_max,y_min, y_max]).any():
-        x_min, x_max,y_min, y_max = -1.0, 1.0, -1.0, 1.0
+    if np.isinf([x_min, x_max,y_min, y_max]).any() or np.isnan([x_min, x_max,y_min, y_max]).any():
+        x_min, x_max,y_min, y_max = -0.1, 0.1, -0.1, 0.1
         finite_vals = False
 
     # Define the four corners
@@ -325,7 +325,7 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
             txt = "inf"
         ax.text(x_text, y_text, txt, fontsize=10, ha='center', va='center', color=color)
 
-def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, label=None):
+def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, label=None, off_a = 0.0):
     """
     Draws two cropped arcs using lines and connects them with radial lines.
     
@@ -339,7 +339,7 @@ def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, la
     """
     angle_interval = [interval for interval in box_msg.intervals if interval.name == "angle"][0]
     range_interval = [interval for interval in box_msg.intervals if interval.name == "range"][0]
-    angle_min, angle_max = angle_interval.start, angle_interval.end
+    angle_min, angle_max = angle_interval.start+off_a, angle_interval.end+off_a
     range_min, range_max = range_interval.start, range_interval.end
 
     # Generate points for the inner arc (minimum range)

@@ -185,8 +185,8 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
     y_min, y_max = y_interval.start, y_interval.end
 
     finite_vals = True
-    if np.isinf([x_min, x_max,y_min, y_max]).any():
-        x_min, x_max,y_min, y_max = -1.0, 1.0, -1.0, 1.0
+    if np.isinf([x_min, x_max,y_min, y_max]).any() or np.isnan([x_min, x_max,y_min, y_max]).any():
+        x_min, x_max,y_min, y_max = -0.1, 0.1, -0.1, 0.1
         finite_vals = False
 
     # Define the four corners
