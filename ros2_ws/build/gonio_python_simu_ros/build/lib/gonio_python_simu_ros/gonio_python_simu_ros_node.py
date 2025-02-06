@@ -31,24 +31,24 @@ class GonioPythonSimuRosNode(Node):
 
         #asynchronous sensors publications speeds
         position_rate = 30.0  # Hz
-        orientation_rate = 25.0  # Hz
+        orientation_rate = 10.0  # Hz
         velocity_rate = 27.0  # Hz
         landmarks_rate = 5.0  # Hz
         simu_rate = max([position_rate,orientation_rate,velocity_rate,landmarks_rate])+1.0 #faster than fastest sensor
 
         #intervals noise
-        self.boat_position_noise_min = 0.9
-        self.boat_position_noise_max = 1.0
+        self.boat_position_noise_min = 0 #0.9
+        self.boat_position_noise_max = 0 #1.0
         self.boat_orientation_noise_min = 0.5
         self.boat_orientation_noise_max = 0.55
         self.boat_velocity_noise_min = 0.01
         self.boat_velocity_noise_max = 0.1
-        self.buoys_angle_noise_min = 0.1
-        self.buoys_angle_noise_max = 0.12
+        self.buoys_angle_noise_min = 0.0
+        self.buoys_angle_noise_max = 0.0
         self.buoys_range_noise_min = 0.2
         self.buoys_range_noise_max = 0.25
-        self.buoys_position_noise_min = 0.37
-        self.buoys_position_noise_max = 0.4
+        self.buoys_position_noise_min = 0
+        self.buoys_position_noise_max = 0
 
         #parameters
         self.s = 7.0
@@ -63,10 +63,24 @@ class GonioPythonSimuRosNode(Node):
         self.sea_objects.append(Boat(222, -6, 2, 1.5, 0.25, 4, 1.75))
         self.sea_objects.append(Buoy(333, 0, 2, 0, 1, 0, 0))
         self.sea_objects.append(Buoy(334, -1, -2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(335, 3, 0, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(336, 3, 3, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(337, 4, 2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(338, 1, 0, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(339, 0, 1, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(330, 2, 4, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(331, -2, -1, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(332, 1, -2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(341, -6, 2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(344, -6, -2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(343, 6, -2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(342, 6, 2, 0, 1, 0, 0))
+        self.sea_objects.append(Buoy(340, -3, 0, 0, 1, 0, 0))
+        print('message')
 
         #visuals
         self.simulation = Simulation(self.sea_objects, self.dt, self.k)
-        self.fig, self.ax = init_figure(-self.s, self.s, -self.s, self.s)
+        self.fig, self.ax = init_figure(-self.s, self.s, -self.s, self.s, id="Gonio simulator")
 
         """
         INITIALISATIONS
@@ -168,15 +182,16 @@ class GonioPythonSimuRosNode(Node):
         angle_z_err = random.uniform(self.boat_orientation_noise_min, self.boat_orientation_noise_max) 
         self.box_stamped_orientation = get_box(float_to_time_msg(t_sim),"map",angle_x, angle_y, angle_z,angle_x_err,angle_y_err,angle_z_err,"euler_angles")
         #speed
-        spd_x, spd_y, spd_z = boat.v*math.cos(boat.theta), boat.v*math.sin(boat.theta), 0.0
+        spd_x, spd_y, spd_z = boat.v, 0.0, 0.0
         spd_x_err = random.uniform(self.boat_velocity_noise_min, self.boat_velocity_noise_max)  # Random error between a and b
-        spd_y_err = random.uniform(self.boat_velocity_noise_min, self.boat_velocity_noise_max)
+        #spd_y_err = random.uniform(self.boat_velocity_noise_min, self.boat_velocity_noise_max)
+        spd_y_err = random.uniform(0.0, 0.0) 
         spd_z_err = random.uniform(0.0, 0.0) 
         self.box_stamped_velocity = get_box(float_to_time_msg(t_sim),"map",spd_x, spd_y, spd_z,spd_x_err, spd_y_err, spd_z_err,"speed")
         #landmarks
         landmarks_box = [] #Box list with intervals (Angle,range) for each
         
-        self.get_logger().info(f"Interval contracte reçus: {self.box_position_contracted}")
+        #self.get_logger().info(f"Interval contracte reçus: {self.box_position_contracted}")
         
         for obj in self.sea_objects[1:]: #we ignore first object, as it is the boat
             if obj.in_area:
@@ -268,6 +283,11 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
     x_min, x_max = x_interval.start, x_interval.end
     y_min, y_max = y_interval.start, y_interval.end
 
+    finite_vals = True
+    if np.isinf([x_min, x_max,y_min, y_max]).any():
+        x_min, x_max,y_min, y_max = -1.0, 1.0, -1.0, 1.0
+        finite_vals = False
+
     # Define the four corners
     corners = [
         (x_min, y_min),
@@ -281,7 +301,10 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
     x_vals, y_vals = zip(*corners)
 
     # Draw the box using simple lines
-    ax.plot(x_vals, y_vals, color=color, linestyle='-', linewidth=1)
+    linestyle = '-' # Solid line
+    if not finite_vals:  # Check if any value in x_vals is infinite
+        linestyle=(0, (5, 5))  # Dashed pattern "- - - -"
+    ax.plot(x_vals, y_vals, color=color, linestyle=linestyle, linewidth=1)
 
     # Draw the center point
     center_x, center_y = (x_min + x_max) / 2, (y_min + y_max) / 2
@@ -297,7 +320,10 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
             y_text += (height/2)+0.30
         elif pos == "down":
             y_text -= (height/2)+0.30
-        ax.text(x_text, y_text, label, fontsize=10, ha='center', va='center', color=color)
+        txt = label
+        if not finite_vals:
+            txt = "inf"
+        ax.text(x_text, y_text, txt, fontsize=10, ha='center', va='center', color=color)
 
 def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, label=None):
     """

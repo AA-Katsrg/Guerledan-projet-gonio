@@ -10,6 +10,7 @@ setup.py
 ../../build/get_intervals/get_intervals.egg-info/zip-safe
 get_intervals/__init__.py
 get_intervals/converter_node.py
+get_intervals/converter_node_docker_version.py
 resource/get_intervals
 test/test_copyright.py
 test/test_flake8.py

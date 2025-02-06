@@ -18,10 +18,10 @@ from matplotlib.patches import Ellipse, Rectangle, Circle, Wedge, Polygon, Arc
 from matplotlib.collections import PatchCollection
 
 
-def init_figure(xmin, xmax, ymin, ymax, width=10, height=10):
+def init_figure(xmin, xmax, ymin, ymax, width=10, height=10, id="fig_id"):
     # fig = figure(figsize=(width, height))
     # ax = fig.add_subplot(111, aspect='equal')
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(num=id)
     plt.suptitle('Simulation', size='x-large')
 
     ax.xmin = xmin

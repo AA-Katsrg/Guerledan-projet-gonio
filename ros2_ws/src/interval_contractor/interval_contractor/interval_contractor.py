@@ -11,6 +11,7 @@ from interval_analysis_interfaces.msg import Interval as IntervalMsg
 from interval_analysis_interfaces.msg import BoxStamped as BoxMsgStamped
 from interval_analysis_interfaces.msg import Box as BoxMsg
 from interval_analysis_interfaces.msg import BoxListStamped as BoxListStampedMsg
+import time
 
 class CtcMultiBearing(c2.Ctc):
     def __init__(self, m_, y_):
@@ -57,27 +58,50 @@ class GonioNode(Node):
         super().__init__('gonio_node')
         self.subscription_cap = self.create_subscription(BoxMsgStamped, '/it/orientation', self.cap_callback, 10)
         self.subscription_landmarks = self.create_subscription(BoxListStampedMsg, '/it/landmarks', self.landmarks_callback, 10)
+        self.subscription_velocity = self.create_subscription(BoxMsgStamped, '/it/velocity', self.velocity_callback, 10)
         self.publisher = self.create_publisher(BoxMsgStamped, '/it/contracted/position', 10)
-        self.cap_msg = None
+        self.cap = None
         self.landmarks_msg = None
-        contractor_rate = 30 #Hz
+        contractor_rate = 1 #Hz
         self.create_timer(1.0 / contractor_rate, self.try_contract)
+        self.velocity_x = 0
+        self.velocity_y = 0
+        self.timer = None
+        self.integral = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
+        self.x = None
         
         
 
     def cap_callback(self, msg):
-        self.cap_msg = msg
-        #self.get_logger().info(f"Orientation reçue: {self.cap_msg}")
+        _, _, self.cap = box_msg_to_interval(msg)
+        #self.get_logger().info(f"Orientation reçue: {self.cap}")
 
     def landmarks_callback(self, msg):
         self.landmarks_msg = msg
         #self.get_logger().info(f"Landmarks reçus: {self.landmarks_msg}")
         
+    def velocity_integer(self) :
+        t = time.time()
+        self.integral[0] += (t - self.timer) * self.velocity_x
+        self.integral[1] += (t - self.timer) * self.velocity_y
+        
+        #self.get_logger().info(f"Integral reçus: {self.integral}")
+
+
+    def velocity_callback (self, msg) :
+        self.velocity_x, self.velocity_y, _ = box_msg_to_interval(msg)
+        #self.get_logger().info(f"Vitesse reçus: {self.velocity_x}")
+        if self.timer is not None :
+            self.velocity_integer()
+            
+            
+            
+        self.timer = time.time()
         
     
 
     def try_contract(self):
-        if self.cap_msg is not None and self.landmarks_msg is not None :
+        if self.cap is not None and self.landmarks_msg is not None :
             #M = [c1.IntervalVector((lm[0], lm[1])) for lm in self.landmarks_msg]
             #y = [c1.Interval(math.atan2(lm[1], lm[0]) - self.cap).inflate(0.05) for lm in self.landmarks]
             
@@ -88,22 +112,33 @@ class GonioNode(Node):
             for i in range (len(X)) :
                 M.append(c1.IntervalVector((X[i], Y[i])))
                 y.append(A[i])
-            _, _, cap = box_msg_to_interval(self.cap_msg)
-            x = c1.IntervalVector([c1.Interval(-10, 10), c1.Interval(-10, 10), cap])
+            #print(len(y))
+            #print(len(M))
+            
+            #self.x = c1.IntervalVector([c1.Interval(-6, 6), c1.Interval(-6, 6), self.cap])
+            
+            if self.x is None :
+                self.x = c1.IntervalVector([c1.Interval(-6, 6), c1.Interval(-6, 6), self.cap])
+            else : 
+                self.x += self.integral 
+                
+            #self.get_logger().info(f"Integral reçus: {self.integral}")
+            
+            self.integral = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
             ctc_multi_bearing = CtcGonio(M, y)
             cn = c1.ContractorNetwork()
-            cn.add(ctc_multi_bearing, [x])
+            cn.add(ctc_multi_bearing, [self.x])
             cn.contract()
             
-            #self.get_logger().info(f"Position contractée: x=[{x[0].lb()}, {x[0].ub()}], y=[{x[1].lb()}, {x[1].ub()}]")
+            self.get_logger().info(f"Position contractée: x=[{self.x[0].lb()}, {self.x[0].ub()}], y=[{self.x[1].lb()}, {self.x[1].ub()}]")
             
             contracted_box = BoxMsgStamped()
             contracted_box.name = "contracted_position"
             contracted_box.header.stamp = self.get_clock().now().to_msg()
             contracted_box.header.frame_id = "map"
 
-            x_interval = IntervalMsg(name="x", start=x[0].lb(), end=x[0].ub())
-            y_interval = IntervalMsg(name="y", start=x[1].lb(), end=x[1].ub())
+            x_interval = IntervalMsg(name="x", start=self.x[0].lb(), end=self.x[0].ub())
+            y_interval = IntervalMsg(name="y", start=self.x[1].lb(), end=self.x[1].ub())
 
             contracted_box.intervals = [x_interval, y_interval]
             self.publisher.publish(contracted_box)

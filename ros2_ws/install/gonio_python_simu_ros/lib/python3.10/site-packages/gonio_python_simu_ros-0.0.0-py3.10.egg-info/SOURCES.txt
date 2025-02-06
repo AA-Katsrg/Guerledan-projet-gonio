@@ -14,6 +14,7 @@ gonio_python_simu_ros/buoy.py
 gonio_python_simu_ros/calcul_tools.py
 gonio_python_simu_ros/draw.py
 gonio_python_simu_ros/gonio_python_simu_ros_node.py
+gonio_python_simu_ros/gonio_python_visualizer_ros_node.py
 gonio_python_simu_ros/potential_fields.py
 gonio_python_simu_ros/sea_object.py
 gonio_python_simu_ros/simu.py
