@@ -1,4 +1,11 @@
 WI-FI: M1800-11-sr
+(psw: texys2018)
+ID Address: 10.0.11.100
+User: labsticc
+Password: labsticc
+
+WI-FI: APN_drone_11 
+(psw: IMSolutions2020)
 ID Address: 10.0.11.100
 User: labsticc
 Password: labsticc
@@ -8,7 +15,6 @@ Workspace goniometrie: ros2_ws_gonio_loc
 
 //Update packages in Robot's workspace, launch this on personnal computer (copy all ros2 workspace)
 scp -r src/ labsticc@10.0.11.100:~/ros2_ws_gonio_loc/
-
 
 //ROS2 robots topics
 Published topics:
@@ -36,13 +42,14 @@ Published topics:
  * /range_image [sensor_msgs/msg/Image] 1 publisher
  * /reflec_image [sensor_msgs/msg/Image] 1 publisher
  * /rosout [rcl_interfaces/msg/Log] 9 publishers
- * /sbg/ekf_euler [sbg_driver/msg/SbgEkfEuler] 1 publisher
+___ * /dvl/data/
+___ * /sbg/ekf_euler [sbg_driver/msg/SbgEkfEuler] 1 publisher
  * /sbg/ekf_nav [sbg_driver/msg/SbgEkfNav] 1 publisher
  * /sbg/ekf_quat [sbg_driver/msg/SbgEkfQuat] 1 publisher
- * /sbg/gps_hdt [sbg_driver/msg/SbgGpsHdt] 1 publisher
- * /sbg/gps_pos [sbg_driver/msg/SbgGpsPos] 1 publisher
+=== * /sbg/gps_hdt [sbg_driver/msg/SbgGpsHdt] 1 publisher
+=== * /sbg/gps_pos [sbg_driver/msg/SbgGpsPos] 1 publisher
  * /sbg/gps_raw [sbg_driver/msg/SbgGpsRaw] 1 publisher
- * /sbg/gps_vel [sbg_driver/msg/SbgGpsVel] 1 publisher
+=== * /sbg/gps_vel [sbg_driver/msg/SbgGpsVel] 1 publisher
  * /sbg/imu_data [sbg_driver/msg/SbgImuData] 1 publisher
  * /sbg/imu_short [sbg_driver/msg/SbgImuShort] 1 publisher
  * /sbg/status [sbg_driver/msg/SbgStatus] 1 publisher
