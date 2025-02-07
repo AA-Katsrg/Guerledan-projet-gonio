@@ -28,6 +28,8 @@ class GonioPythonSimuRosNode(Node):
         #self.trajectory = [[2.0,-2.0],[4.0,-2.0],[3.0,2.0],[0.0,2.0]] #list of point to infinitely follow
         self.current_point_to_follow = 0 #index of the current point being followed
         self.goal_success_dist = 1.0
+        self.box_save_nb = 100
+        self.box_pos_list = []
 
         #asynchronous sensors publications speeds
         position_rate = 30.0  # Hz
@@ -220,6 +222,16 @@ class GonioPythonSimuRosNode(Node):
         box_list_msg.boxes = landmarks_box
         self.box_list_stamped_landmarks = box_list_msg # ROS2 BoxListStampedMsg
 
+        #save
+        if self.box_position_contracted is not None:
+            if abs(self.box_position_contracted.intervals[0].start) < 9.0: 
+               self.box_pos_list.append(self.box_position_contracted)
+               if(len(self.box_pos_list) > self.box_save_nb):
+                   self.box_pos_list.pop(0)
+
+        for box_pos in self.box_pos_list:
+            draw_box_lines(self.ax, box_pos, color='grey', label=" ", saved=True)
+
         # Draw waypoints
         waypoints_x = [p[0] for p in self.trajectory]
         waypoints_y = [p[1] for p in self.trajectory]
@@ -265,7 +277,7 @@ def format_box(box_msg,precision):
     """Format a BoxMsg or BoxStampedMsg as a list of [start, end] pairs."""
     return [[round(interval.start,precision), round(interval.end,precision)] for interval in box_msg.intervals]
 
-def draw_box_lines(ax, box_msg, color='red', label=None, pos="top", backup=None):
+def draw_box_lines(ax, box_msg, color='red', label=None, pos="top", backup=None, saved = False):
     """
     Draws a square box using simple lines based on a BoxMsg.
 
@@ -304,14 +316,18 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top", backup=None)
     linestyle = '-' # Solid line
     if not finite_vals:  # Check if any value in x_vals is infinite
         linestyle=(0, (5, 5))  # Dashed pattern "- - - -"
-    ax.plot(x_vals, y_vals, color=color, linestyle=linestyle, linewidth=1)
+    if not saved:
+        ax.plot(x_vals, y_vals, color=color, linestyle=linestyle, linewidth=1)
+    else:
+        ax.plot(x_vals, y_vals, color=color, linestyle=linestyle, linewidth=1,alpha=0.2)
 
     # Draw the center point
-    center_x, center_y = (x_min + x_max) / 2, (y_min + y_max) / 2
-    ax.plot(center_x, center_y, color=color, marker='x')
+    if not saved:
+        center_x, center_y = (x_min + x_max) / 2, (y_min + y_max) / 2
+        ax.plot(center_x, center_y, color=color, marker='x')
 
     # Add label
-    if label:
+    if label and not saved:
         #width = abs(x_max-x_min)
         height = abs(y_max-y_min)
         x_text = center_x

@@ -23,7 +23,6 @@ class GonioPythonVisualizerRosNode(Node):
         """
         self.debug = False #print debug in terminal
         self.draw_rate = 30.0 #Hz
-        self.box_save_nb = 20
 
         """
         INITIALISATIONS
@@ -95,10 +94,10 @@ class GonioPythonVisualizerRosNode(Node):
             self.box_stamped_orientation = get_box(float_to_time_msg(-1.0),"map",0.0,0.0,0.0,float('inf'),float('inf'),float('inf'),name="fake_bot_orientation")
         draw_box_list = [] #can contain None values if not yet initialized
         draw_box_list.append(self.box_stamped_position)
-        draw_box_list.append(self.box_position_contracted)
         if self.box_list_stamped_landmarks is not None:
             for landmark_box in self.box_list_stamped_landmarks.boxes:
                 draw_box_list.append(landmark_box)
+        draw_box_list.append(self.box_position_contracted)
 
         #Create objects
         self.sea_objects = []
@@ -124,11 +123,15 @@ class GonioPythonVisualizerRosNode(Node):
 
         #Draw intervals
         draw_box_lines(self.ax, self.box_stamped_position, color='red', label=self.box_stamped_position.name)
-        for box in draw_box_list[1:]: #we ignore boat
+        end = -1
+        if self.box_position_contracted is not None:
+            end=-2
+        for box in draw_box_list[1:end]: #we ignore boat
             if box is not None:
                 draw_box_lines(self.ax, box, color='red', label="raw_"+box.name)
                 if self.box_stamped_position.header.stamp.sec > 0.0: #if we have a boat
-                    draw_fov_lines(self.ax, self.sea_objects[0].x, self.sea_objects[0].y, box, color='red', label="raw_"+box.name)
+                    heading = self.box_stamped_orientation.intervals[2].start + (self.box_stamped_orientation.intervals[2].end-self.box_stamped_orientation.intervals[2].start)/2
+                    draw_fov_lines(self.ax, self.sea_objects[0].x, self.sea_objects[0].y, box, color='red', label="raw_"+box.name, off_a = heading)
                 else:
                     draw_fov_lines(self.ax, 0.0, 0.0, box, color='red', label="raw_"+box.name)
         if self.box_position_contracted is not None:
@@ -227,7 +230,7 @@ def draw_box_lines(ax, box_msg, color='red', label=None, pos="top"):
             txt = "inf"
         ax.text(x_text, y_text, txt, fontsize=10, ha='center', va='center', color=color)
 
-def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, label=None):
+def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, label=None, off_a = 0.0):
     """
     Draws two cropped arcs using lines and connects them with radial lines.
     
@@ -241,7 +244,7 @@ def draw_fov_lines(ax, robot_x, robot_y, box_msg, color='red', linewidth=1.0, la
     """
     angle_interval = [interval for interval in box_msg.intervals if interval.name == "angle"][0]
     range_interval = [interval for interval in box_msg.intervals if interval.name == "range"][0]
-    angle_min, angle_max = angle_interval.start, angle_interval.end
+    angle_min, angle_max = angle_interval.start+off_a, angle_interval.end+off_a
     range_min, range_max = range_interval.start, range_interval.end
 
     # Generate points for the inner arc (minimum range)
