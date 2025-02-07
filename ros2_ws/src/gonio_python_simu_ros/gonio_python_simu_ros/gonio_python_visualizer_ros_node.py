@@ -23,6 +23,7 @@ class GonioPythonVisualizerRosNode(Node):
         """
         self.debug = False #print debug in terminal
         self.draw_rate = 30.0 #Hz
+        self.box_save_nb = 20
 
         """
         INITIALISATIONS

@@ -70,8 +70,7 @@ class GonioNode(Node):
         self.integral = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
         self.x = None
         
-        
-
+    
     def cap_callback(self, msg):
         _, _, self.cap = box_msg_to_interval(msg)
         #self.get_logger().info(f"Orientation reçue: {self.cap}")
@@ -94,11 +93,8 @@ class GonioNode(Node):
         if self.timer is not None :
             self.velocity_integer()
             
-            
-            
         self.timer = time.time()
-        
-    
+
 
     def try_contract(self):
         if self.cap is not None and self.landmarks_msg is not None :

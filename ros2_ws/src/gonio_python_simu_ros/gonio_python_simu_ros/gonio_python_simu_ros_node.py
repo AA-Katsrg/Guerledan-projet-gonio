@@ -37,18 +37,18 @@ class GonioPythonSimuRosNode(Node):
         simu_rate = max([position_rate,orientation_rate,velocity_rate,landmarks_rate])+1.0 #faster than fastest sensor
 
         #intervals noise
-        self.boat_position_noise_min = 0.0 #0.9
-        self.boat_position_noise_max = 0.0 #1.0
-        self.boat_orientation_noise_min = 0.5
-        self.boat_orientation_noise_max = 0.55
-        self.boat_velocity_noise_min = 0.01
-        self.boat_velocity_noise_max = 0.1
-        self.buoys_angle_noise_min = 0.0
-        self.buoys_angle_noise_max = 0.0
+        self.boat_position_noise_min = 10.0 #0.9
+        self.boat_position_noise_max = 10.0 #1.0
+        self.boat_orientation_noise_min = 0.0
+        self.boat_orientation_noise_max = 0.0
+        self.boat_velocity_noise_min = 0.0
+        self.boat_velocity_noise_max = 0.0
+        self.buoys_angle_noise_min = 0.1
+        self.buoys_angle_noise_max = 0.15
         self.buoys_range_noise_min = 0.2
         self.buoys_range_noise_max = 0.25
-        self.buoys_position_noise_min = 0.1
-        self.buoys_position_noise_max = 0.15
+        self.buoys_position_noise_min = 0.3
+        self.buoys_position_noise_max = 0.35
 
         #parameters
         self.s = 7.0

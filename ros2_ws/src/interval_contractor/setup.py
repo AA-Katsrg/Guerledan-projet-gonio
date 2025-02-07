@@ -23,6 +23,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'interval_contractor_node = interval_contractor.interval_contractor:main'],
+            'interval_contractor_node = interval_contractor.interval_contractor:main',
+            'interval_contractor_codac1_node = interval_contractor.interval_contractor_codac1:main'
+            ],
     },
 )
