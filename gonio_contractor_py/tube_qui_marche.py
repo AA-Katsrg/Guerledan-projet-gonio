@@ -85,11 +85,14 @@ x_truth[0] = v_truth[0].primitive() + x0[0]
 x_truth[1] = v_truth[1].primitive() + x0[1]
 
 '''ce qui change ici qu'on utilise seulement 2 dimension'''
-Xpsi=c1.TubeVector(tdomain,dt,1)
+Xpsi=c1.Tube(tdomain,dt)
 Xxy=c1.TubeVector(tdomain,dt,2)
 v=c1.TubeVector(tdomain,dt,2)
 u=c1.Tube(u_truth, dt)
 
+
+# print("Xpsi",Xpsi)
+# print("Xxy",u)
 """
 mais ce qui ce suive dans une boucle 
 
@@ -107,19 +110,18 @@ x[2] = c1.Tube(x_truth[2], dt)
 """
 
 
-t = 10 # detection time
-x_t = x_truth(t)
+# t = 10 # detection time
+# x_t = x_truth(t)
 
-print("x2",x_truth(0.)[:2])
-print("x",x_truth(0.))
-# Xxy.set(x_truth(0.)[:2],0.)
+Xxy.set(x_truth(0.)[:2],0.)
+
 
 
 
 # les differents balises que je veux remarquer a des temps differents
 measurements = {
     10: c1.IntervalVector([-2, -7]),
-    # 5: c1.IntervalVector([1, 15]), 
+    5: c1.IntervalVector([1, 15]), 
     # 8: c1.IntervalVector([14, 3]),
     12: c1.IntervalVector([5, -5]),
 }
@@ -132,84 +134,84 @@ for t, mi in measurements.items():
     print("Bearing Measurements:", bearing_measurements[t])
 
 
-# c1.beginDrawing()
+c1.beginDrawing()
 
-# fig_map = c1.VIBesFigMap("Map")
-# fig_map.set_properties(100,100,500,500)
-# fig_map.axis_limits(-20,25,-10,15)
-# fig_map.add_trajectory(x_truth, "x", 0, 1)
-# fig_map.add_tube(Xxy, "x", 0, 1)
-# # fig_map.show(1)
-
-
-# # initialise le reseaux de contracteur
-# cn= c1.ContractorNetwork()
-# ctc_deriv = c1.CtcDeriv()
-# ctc_eval=c1.CtcEval()
-# cn.add(ctc_deriv, [Xxy, v])  # Contrainte entre position et vitesse
-
-
-# iteration_dt = 0.2 # elapsed animation time between each dt
-
-# # Create tubes defined over [t0,tf]
-# # Add already known constraints, such as motion equations
-
-# t = tdomain.lb()
-# prev_t_obs = t
-
-# bool=False
-
-# while t < tdomain.ub(): # run the simulation from t0 to tf
-#   t2=t
-#   t2 = round(t, 2) #parcque dt = 0.01 et on apres ajout ou division de 0.01 la valuer ajouter est en vrai presque 0.010000000001
-
-#   # Add the cn.add_data for x and v of the tube
-#   psit= c1.Interval(x_truth(t)[2])
-#   vt = c1.IntervalVector([c1.Interval(v_truth(t)[0]),c1.Interval(v_truth(t)[1])]).inflate(0)
-
-#   '''
-#    peut etre on aura un problem parcque le t est arrondie donc ca ne sera pas le vrai t dy tube
-#    peut etre ca ne sera pas un probleme parcque ci on change une partie a l'interieur 
-#   d'une tranche le cn.add_data contract tout seul sur tout la tranche
-#   '''
-
-#   cn.add_data(v, t,vt)
-#   cn.add_data(Xpsi, t, psit)
-#   # print(v(1))
-
-#   if t2 in measurements.keys():
-#     mi = measurements[t2]
-#     y = bearing_measurements[t2]
-#     print(f"[{t:.1f}s] Processing Landmark: {mi}, Bearing: {y}")
-
-#     # Apply observation constraints
-#     p = c1.IntervalVector(3)
-#     a = c1.IntervalVector()
-
-#     # On peut ajouter de pecimisme sur mi et y avant que je les mais dans le contracteur
-#     ctc_gonio = Ctc_gonio([mi], [y])
-#     cn.add(ctc_eval, [c1.Interval(t), p, Xxy, v])  # Constrain position at t
-#     cn.add(ctc_eval, [c1.Interval(t), a, Xpsi])  # Constrain position at t
-#     cn.add(ctc_gonio, [p,a])  # Apply bearing constraint
-
-#     # Display detected landmark
-#     fig_map.add_beacon(mi, "red")
-#     prev_t_obs = t
-
-#   cn.contract()
-
-  
-#   # contraction_dt = cn.contract_during(iteration_dt)
-#   # if iteration_dt>contraction_dt: # pause for the animation
-#   #   time.sleep(iteration_dt-contraction_dt) # iteration delay
-
-#   # Display the current slice [x](t)
-#   fig_map.draw_box(Xxy(t))
-
-#   t+=dt
-
-
-
+fig_map = c1.VIBesFigMap("Map")
+fig_map.set_properties(100,100,500,500)
+fig_map.axis_limits(-20,25,-10,15)
+fig_map.add_trajectory(x_truth, "x", 0, 1)
+fig_map.add_tube(Xxy, "x", 0, 1)
 # fig_map.show(1)
 
-# vibes.endDrawing()
+
+# initialise le reseaux de contracteur
+cn= c1.ContractorNetwork()
+ctc_deriv = c1.CtcDeriv()
+ctc_eval=c1.CtcEval()
+cn.add(ctc_deriv, [Xxy, v])  # Contrainte entre position et vitesse
+
+
+iteration_dt = 0.2 # elapsed animation time between each dt
+
+# Create tubes defined over [t0,tf]
+# Add already known constraints, such as motion equations
+
+t = tdomain.lb()
+prev_t_obs = t
+
+bool=False
+
+while t < tdomain.ub(): # run the simulation from t0 to tf
+  t2=t
+  t2 = round(t, 2) #parcque dt = 0.01 et on apres ajout ou division de 0.01 la valuer ajouter est en vrai presque 0.010000000001
+
+  # Add the cn.add_data for x and v of the tube
+  psit= c1.Interval(x_truth(t)[2])
+  vt = c1.IntervalVector([c1.Interval(v_truth(t)[0]),c1.Interval(v_truth(t)[1])]).inflate(0)
+
+  '''
+   peut etre on aura un problem parcque le t est arrondie donc ca ne sera pas le vrai t dy tube
+   peut etre ca ne sera pas un probleme parcque ci on change une partie a l'interieur 
+  d'une tranche le cn.add_data contract tout seul sur tout la tranche
+  '''
+
+  cn.add_data(v, t,vt)
+  cn.add_data(Xpsi, t, psit)
+  # print(v(1))
+
+  if t2 in measurements.keys():
+    mi = measurements[t2]
+    y = bearing_measurements[t2]
+    print(f"[{t:.1f}s] Processing Landmark: {mi}, Bearing: {y}")
+
+    # Apply observation constraints
+    p = c1.IntervalVector(2)
+    a = c1.Interval()
+
+    # On peut ajouter de pecimisme sur mi et y avant que je les mais dans le contracteur
+    ctc_gonio = Ctc_gonio([mi], [y])
+    cn.add(ctc_eval, [c1.Interval(t), p, Xxy, v])  # Constrain position at t
+    cn.add(ctc_eval, [c1.Interval(t), a, Xpsi])  # Constrain position at t
+    cn.add(ctc_gonio, [p,a])  # Apply bearing constraint
+
+    # Display detected landmark
+    fig_map.add_beacon(mi, "red")
+    prev_t_obs = t
+
+  cn.contract()
+
+  
+  # contraction_dt = cn.contract_during(iteration_dt)
+  # if iteration_dt>contraction_dt: # pause for the animation
+  #   time.sleep(iteration_dt-contraction_dt) # iteration delay
+
+  # Display the current slice [x](t)
+  fig_map.draw_box(Xxy(t))
+
+  t+=dt
+
+
+
+fig_map.show(1)
+
+vibes.endDrawing()
