@@ -7,6 +7,65 @@ from interval_analysis_interfaces.msg import BoxListStamped as BoxListStampedMsg
 from std_msgs.msg import Header
 from builtin_interfaces.msg import Time
 import numpy as np
+import codac as c1
+import codac2 as c2
+import interface_codac as Interface
+
+class CtcMultiBearing(c2.Ctc):
+
+  def __init__(self, m_, y_):
+    c2.Ctc.__init__(self, 3)
+    self.m = m_
+    self.y = y_
+
+  def contract(self, x):
+    n = len(self.m)
+    A = c2.IntervalMatrix(n,2)
+    b = c2.IntervalVector(n)
+    p = c2.IntervalVector([x[0],x[1]])
+    
+    for i in range(0,n):
+      A[i,0] = c2.sin(x[2]+self.y[i])
+      A[i,1] = -c2.cos(x[2]+self.y[i])
+      b[i] = self.m[i][0]*c2.sin(x[2]+self.y[i])-self.m[i][1]*c2.cos(x[2]+self.y[i])
+      
+    c2.MulOp.bwd(b,A,p)
+    x.put(0,p)
+    return x
+
+class Ctc_gonio(c1.Ctc):
+
+  def __init__(self, M_, y_):
+    c1.Ctc.__init__(self, 3) # the contractor acts on 3d boxes
+    self.m = M_  # Store the landmarks
+    self.y = y_  # Store the bearings    # attribute needed later on for the contraction
+    self.M2, self.y2 = self.c1_to_c2()
+    self.ctc2 = CtcMultiBearing(self.M2, self.y2)
+
+    print("M2",self.M2)
+    print("y2",self.y2)
+
+  def c1_to_c2(self):
+
+    M2=[]
+    for mi in self.m:
+      m = Interface.convert_intervalVector_c1_to_c2(mi)
+      M2.append(m)
+
+    y2=[]
+    for yi in self.y:
+      y = Interface.convert_interval_c1_to_c2(yi)
+      y2.append(y)
+
+    return M2,y2
+
+  def contract(self, x):
+    
+    x2= Interface.convert_intervalVector_c1_to_c2(x)
+    x2 = self.ctc2.contract(x2)
+
+    return Interface.convert_intervalVector_c2_to_c1(x2)
+
 
 class ContractorNode(Node):
     def __init__(self):
@@ -17,6 +76,16 @@ class ContractorNode(Node):
         self.debug = False
         self.run_rate = 10.0
 
+        """
+        Variables, initialized once first message received.
+        """
+        self.dt=0.01 #dt for tube
+        self.t_tube_delay = 20.0
+        self.t_start = None
+        self.tdomain= None # c1.Interval(t_now,t_now + t_tube_delay)
+        self.Xpsi= None # c1.Tube(tdomain,dt)
+        self.Xxy= None # c1.TubeVector(tdomain,dt,2)
+        self.v= None # c1.TubeVector(tdomain,dt,2)
 
         """
         Messages (Updated by subscriptions)
@@ -31,10 +100,10 @@ class ContractorNode(Node):
         CONTRACTORS
         """
         # Gonio Contractors
-        self.ctc_polar = CtcPolar()
-        self.ctc_2 = CtcFunction(Function("x[3]", "l[4]", "d1", "l[0]-x[0]-d1"))
-        self.ctc_3 = CtcFunction(Function("x[3]", "l[4]", "d2", "l[1]-x[1]-d2"))
-        self.ctc_4 = CtcFunction(Function("x[3]", "l[4]", "theta", "x[2]+l[2]-theta"))
+        # initialise le reseaux de contracteur
+        self.cn= c1.ContractorNetwork()
+        self.ctc_deriv = c1.CtcDeriv()
+        self.ctc_eval=c1.CtcEval()
 
         """
         ROS2
@@ -48,6 +117,8 @@ class ContractorNode(Node):
         self.create_timer(1.0 / self.run_rate, self.run)
 
     def box_position_raw_callback(self, msg):
+        if self.box_stamped_position is None:
+            self.init_tube()
         self.box_stamped_position = msg
         if self.debug:
             self.get_logger().info(f"Received Position: {str(format_box(msg,3))}")
@@ -70,29 +141,28 @@ class ContractorNode(Node):
                 debug_txt += f"\n{str(format_box(box,3))}"
             self.get_logger().info(debug_txt)
 
-    def contract_ocean_range(self,x_state,landmarks):
-        """
-        x = IntervalVector[x,y,tetha]
-        landmarks = [IntervalVector[x,y,tetha,range],...]
-        """
-        def add_landmark_to_contractor_network(cn,x_state,landmark):
-            # Intermediate variables
-            m = landmark.subvector(0,1) #x,y
-            y = landmark.subvector(2,3) #a,r
-            theta = y[0] + x_state[2]
-            d1 = m[0] - x_state[0]
-            d2 = m[1] - x_state[1]
-            #add contractors
-            cn.add(self.ctc_polar, [d1, d2, y[1], theta])
-            cn.add(self.ctc_2, [x_state, landmark, d1])
-            cn.add(self.ctc_3, [x_state, landmark, d2])
-            cn.add(self.ctc_4, [x_state, landmark, theta])
-        if len(landmarks) > 0:
-            cn = ContractorNetwork()
-            for landmark in landmarks:
-                add_landmark_to_contractor_network(cn,x_state,landmark)
-            cn.contract()
-        return x_state
+    def init_tube(self):
+        self.t_start = time_msg_to_float(self.box_stamped_position.header.stamp)
+        self.tdomain= c1.Interval(self.t_start,self.t_start + self.t_tube_delay)
+        self.Xpsi= c1.Tube(self.tdomain,self.dt)
+        self.Xxy= c1.TubeVector(self.tdomain,self.dt,2)
+        self.v= c1.TubeVector(self.tdomain,self.dt,2)
+        self.cn.add(self.ctc_deriv, [self.Xxy, self.v])  # Contrainte entre position et vitesse
+
+    def contract(self,t,vt,psit,pos_measurements,bearing_measurements):
+        self.cn.add_data(self.v, t,vt)
+        self.cn.add_data(self.Xpsi, t, psit)
+        for i in range(len(bearing_measurements)):
+            mi = pos_measurements[i]
+            y = bearing_measurements[i]
+            p = c1.IntervalVector(2)
+            a = c1.Interval()
+            # On peut ajouter de pecimisme sur mi et y avant que je les mais dans le contracteur
+            ctc_gonio = Ctc_gonio([mi], [y])
+            self.cn.add(self.ctc_eval, [c1.Interval(t), p, self.Xxy])  # Constrain position at t
+            self.cn.add(self.ctc_eval, [c1.Interval(t), a, self.Xpsi])  # Constrain position at t
+            self.cn.add(ctc_gonio, [p,a])  # Apply bearing constraint
+        self.cn.contract()
 
     def publish_position_from_state(self,x_state):
         err_x = (x_state[0].ub() - x_state[0].lb())/2.0
@@ -108,28 +178,33 @@ class ContractorNode(Node):
             #Get Interval objects for robot
             pos_interval_vector = box_msg_to_interval_vector(self.box_stamped_position)
             orientation_interval_vector = box_msg_to_interval_vector(self.box_stamped_orientation)
-            x = IntervalVector([pos_interval_vector[0],pos_interval_vector[1],orientation_interval_vector[2]])
+            xy = c1.IntervalVector([pos_interval_vector[0],pos_interval_vector[1]])
+            a = c1.IntervalVector([orientation_interval_vector[2]]) 
             #Get Intevral objects for landmarks
-            landmarks = []
+            pos_measurements = []
+            bearing_measurements = []
             for landmark_msg in self.box_list_stamped_landmarks.boxes:
-                landmarks.append(box_msg_to_interval_vector(landmark_msg))
+                landmark = box_msg_to_interval_vector(landmark_msg)
+                pos_measurements.append(c1.IntervalVector([landmark[0],landmark[1]]))
+                bearing_measurements.append(landmark[2])
             #contract and publish
             """
             And any contraction strategy here
             """
-            contracted_state_gonio = self.contract_ocean_range(x,landmarks) #x,y,tetha
-            self.publish_position_from_state(contracted_state_gonio)
+            contracted_xy, contracted_a = self.contract(time_msg_to_float(self.box_stamped_position.header.stamp),xy,a,pos_measurements,bearing_measurements)
+            contracted_state = c1.IntervalVector([contracted_xy[0],contracted_xy[1],contracted_a])
+            self.publish_position_from_state(contracted_state)
 
 def box_msg_to_interval_vector(msg) :
     interval_list = []
     for interval_msg in msg.intervals:
         interval = interval_msg_to_interval(interval_msg)
         interval_list.append(interval)
-    interval_vector = IntervalVector(interval_list)
+    interval_vector = c1.IntervalVector(interval_list)
     return interval_vector
 
 def interval_msg_to_interval(msg):
-    interval = Interval(msg.start,msg.end)
+    interval = c1.Interval(msg.start,msg.end)
     return interval
 
 def format_box(box_msg,precision):
@@ -170,60 +245,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
-    """
-    TRASH
-    """
-    """
-
-    def convert_to_world(speed_interval_vector,bot_heading):
-        v_norm = speed_interval_vector[0] #interval
-        x_speed = v_norm*cos(bot_heading) #interval 
-        y_speed = v_norm*sin(bot_heading) #interval
-        return IntervalVector([x_speed,y_speed,bot_heading])
-
-    def save_list_vector(self,x_box,v_box,t_now):
-        self.x_interval_list.append(x_box[0])
-        self.y_interval_list.append(x_box[1])
-        self.vx_interval_list.append(v_box[0])
-        self.vy_interval_list.append(v_box[1])
-        self.t_list.append(t_now)
-        if len(self.t_list) > self.max_samples_saved and self.max_samples_saved is not 0:
-            self.x_interval_list.pop(0)
-            self.y_interval_list.pop(0)
-            self.vx_interval_list.pop(0)
-            self.vy_interval_list.pop(0)
-            self.t_list.pop(0)
-
-    def update_tube_vectors(self):
-        traj_x_lb, traj_x_ub = get_trajs_from_interval_list(self.t_list,self.x_interval_list)
-        x_tube = get_tube_from_trajs(self.dt_tube,traj_x_lb,traj_x_ub)
-        traj_y_lb, traj_y_ub = get_trajs_from_interval_list(self.t_list,self.y_interval_list)
-        y_tube = get_tube_from_trajs(self.dt_tube,traj_y_lb,traj_y_ub)
-        traj_vx_lb, traj_vx_ub = get_trajs_from_interval_list(self.t_list,self.vx_interval_list)
-        vx_tube = get_tube_from_trajs(self.dt_tube,traj_vx_lb,traj_vx_ub)
-        traj_vy_lb, traj_vy_ub = get_trajs_from_interval_list(self.t_list,self.vy_interval_list)
-        vy_tube = get_tube_from_trajs(self.dt_tube,traj_vy_lb,traj_vy_ub)
-        self.x_tube_vector = TubeVector([x_tube,y_tube])
-        self.v_tube_vector = TubeVector([vx_tube,vy_tube])
-
-    
-    def contract_ocean_deriv(self,x_tube_vector,v_tube_vector,x_state):
-        ctc.deriv.contract(x_tube_vector,v_tube_vector)
-        x_int = x_tube_vector[0].last_slice().output_gate()
-        y_int = x_tube_vector[1].last_slice().output_gate()
-        x_state = IntervalVector([x_int,y_int,x_state[2]])
-        return x_state
-
-    def get_tube_from_trajs(dt,traj_lb,traj_ub):
-        tube = Tube(traj_lb,dt)
-        tube |= traj_ub
-        return tube
-
-    def get_trajs_from_interval_list(t_list,interval_list):
-        traj_lb = Trajectory(t_list,[interval.lb() for interval in interval_list])
-        traj_ub = Trajectory(t_list,[interval.ub() for interval in interval_list])
-        return traj_lb,traj_ub
-
-    """
-

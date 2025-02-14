@@ -190,7 +190,7 @@ while t < tdomain.ub(): # run the simulation from t0 to tf
 
     # On peut ajouter de pecimisme sur mi et y avant que je les mais dans le contracteur
     ctc_gonio = Ctc_gonio([mi], [y])
-    cn.add(ctc_eval, [c1.Interval(t), p, Xxy, v])  # Constrain position at t
+    cn.add(ctc_eval, [c1.Interval(t), p, Xxy])  # Constrain position at t
     cn.add(ctc_eval, [c1.Interval(t), a, Xpsi])  # Constrain position at t
     cn.add(ctc_gonio, [p,a])  # Apply bearing constraint
 
