@@ -1,3 +1,0 @@
-[console_scripts]
-converter_node = get_intervals.converter_node:main
-

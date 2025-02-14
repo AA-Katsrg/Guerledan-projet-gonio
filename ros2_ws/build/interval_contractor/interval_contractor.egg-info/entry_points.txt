@@ -1,3 +1,0 @@
-[console_scripts]
-interval_contractor_node = interval_contractor.interval_contractor:main
-

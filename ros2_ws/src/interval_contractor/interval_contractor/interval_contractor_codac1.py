@@ -16,18 +16,11 @@ class ContractorNode(Node):
         """
         self.debug = False
         self.run_rate = 10.0
-        self.max_samples_saved = 100000 #if 0, we keep all
-        self.dt_tube = 5/self.run_rate
 
         """
-        Varaiables
+        Variables Contract Salah
         """
-        self.x_interval_list = []
-        self.y_interval_list = []
-        self.vx_interval_list = []
-        self.vy_interval_list = []
-        self.t_list = []
-        self.x_tube_vector,self.v_tube_vector = None, None
+
 
         """
         Messages (Updated by subscriptions)
@@ -105,6 +98,9 @@ class ContractorNode(Node):
             cn.contract()
         return x_state
     
+    def contract_salah(self,):
+        pass
+
     def publish_position_from_state(self,x_state):
         err_x = (x_state[0].ub() - x_state[0].lb())/2.0
         err_y = (x_state[1].ub() - x_state[1].lb())/2.0
@@ -113,38 +109,6 @@ class ContractorNode(Node):
         my = x_state[1].lb() + err_y
         mz = 0.0
         self.publisher_contracted_position.publish(get_box(self.box_stamped_position.header.stamp,self.box_stamped_position.header.frame_id,mx,my,mz,err_x,err_y,err_z,name="contracted_boat"))
-        
-    def contract_ocean_deriv(self,x_tube_vector,v_tube_vector,x_state):
-        ctc.deriv.contract(x_tube_vector,v_tube_vector)
-        x_int = x_tube_vector[0].last_slice().output_gate()
-        y_int = x_tube_vector[1].last_slice().output_gate()
-        x_state = IntervalVector([x_int,y_int,x_state[2]])
-        return x_state
-    
-    def save_list_vector(self,x_box,v_box,t_now):
-        self.x_interval_list.append(x_box[0])
-        self.y_interval_list.append(x_box[1])
-        self.vx_interval_list.append(v_box[0])
-        self.vy_interval_list.append(v_box[1])
-        self.t_list.append(t_now)
-        if len(self.t_list) > self.max_samples_saved and self.max_samples_saved is not 0:
-            self.x_interval_list.pop(0)
-            self.y_interval_list.pop(0)
-            self.vx_interval_list.pop(0)
-            self.vy_interval_list.pop(0)
-            self.t_list.pop(0)
-
-    def update_tube_vectors(self):
-        traj_x_lb, traj_x_ub = get_trajs_from_interval_list(self.t_list,self.x_interval_list)
-        x_tube = get_tube_from_trajs(self.dt_tube,traj_x_lb,traj_x_ub)
-        traj_y_lb, traj_y_ub = get_trajs_from_interval_list(self.t_list,self.y_interval_list)
-        y_tube = get_tube_from_trajs(self.dt_tube,traj_y_lb,traj_y_ub)
-        traj_vx_lb, traj_vx_ub = get_trajs_from_interval_list(self.t_list,self.vx_interval_list)
-        vx_tube = get_tube_from_trajs(self.dt_tube,traj_vx_lb,traj_vx_ub)
-        traj_vy_lb, traj_vy_ub = get_trajs_from_interval_list(self.t_list,self.vy_interval_list)
-        vy_tube = get_tube_from_trajs(self.dt_tube,traj_vy_lb,traj_vy_ub)
-        self.x_tube_vector = TubeVector([x_tube,y_tube])
-        self.v_tube_vector = TubeVector([vx_tube,vy_tube])
 
     def run(self):
         if self.box_stamped_position is not None and self.box_stamped_orientation is not None and self.box_list_stamped_landmarks is not None and self.box_stamped_velocity is not None:
@@ -160,39 +124,8 @@ class ContractorNode(Node):
             """
             And any contraction strategy here
             """
-            """if len(self.t_list) > 20:
-                self.update_tube_vectors()
-                self.x_tube_vector.set((-6.0,2.0),0)
-                contracted_state_deriv = self.contract_ocean_deriv(self.x_tube_vector,self.v_tube_vector,x)
-                self.publish_position_from_state(contracted_state_deriv)
-            self.save_list_vector(x.subvector(0,1),convert_to_world(box_msg_to_interval_vector(self.box_stamped_velocity),x[2]).subvector(0,1),time_msg_to_float(self.box_stamped_position.header.stamp))
-            """
             contracted_state_gonio = self.contract_ocean_range(x,landmarks) #x,y,tetha
             self.publish_position_from_state(contracted_state_gonio)
-            
-            """self.save_list_vector(contracted_state_gonio.subvector(0,1),convert_to_world(box_msg_to_interval_vector(self.box_stamped_velocity),x[2]).subvector(0,1),time_msg_to_float(self.box_stamped_position.header.stamp))
-            if len(self.t_list) > 2:
-                self.update_tube_vectors()
-                contracted_state_deriv = self.contract_ocean_deriv(self.x_tube_vector,self.v_tube_vector,contracted_state_gonio)
-                self.publish_position_from_state(contracted_state_deriv)
-            else:
-                self.publish_position_from_state(contracted_state_gonio)"""
-
-def convert_to_world(speed_interval_vector,bot_heading):
-    v_norm = speed_interval_vector[0] #interval
-    x_speed = v_norm*cos(bot_heading) #interval 
-    y_speed = v_norm*sin(bot_heading) #interval
-    return IntervalVector([x_speed,y_speed,bot_heading])
-
-def get_tube_from_trajs(dt,traj_lb,traj_ub):
-    tube = Tube(traj_lb,dt)
-    tube |= traj_ub
-    return tube
-
-def get_trajs_from_interval_list(t_list,interval_list):
-    traj_lb = Trajectory(t_list,[interval.lb() for interval in interval_list])
-    traj_ub = Trajectory(t_list,[interval.ub() for interval in interval_list])
-    return traj_lb,traj_ub
 
 def box_msg_to_interval_vector(msg) :
     interval_list = []
@@ -244,3 +177,60 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
+    """
+    TRASH
+    """
+    """
+
+    def convert_to_world(speed_interval_vector,bot_heading):
+        v_norm = speed_interval_vector[0] #interval
+        x_speed = v_norm*cos(bot_heading) #interval 
+        y_speed = v_norm*sin(bot_heading) #interval
+        return IntervalVector([x_speed,y_speed,bot_heading])
+
+    def save_list_vector(self,x_box,v_box,t_now):
+        self.x_interval_list.append(x_box[0])
+        self.y_interval_list.append(x_box[1])
+        self.vx_interval_list.append(v_box[0])
+        self.vy_interval_list.append(v_box[1])
+        self.t_list.append(t_now)
+        if len(self.t_list) > self.max_samples_saved and self.max_samples_saved is not 0:
+            self.x_interval_list.pop(0)
+            self.y_interval_list.pop(0)
+            self.vx_interval_list.pop(0)
+            self.vy_interval_list.pop(0)
+            self.t_list.pop(0)
+
+    def update_tube_vectors(self):
+        traj_x_lb, traj_x_ub = get_trajs_from_interval_list(self.t_list,self.x_interval_list)
+        x_tube = get_tube_from_trajs(self.dt_tube,traj_x_lb,traj_x_ub)
+        traj_y_lb, traj_y_ub = get_trajs_from_interval_list(self.t_list,self.y_interval_list)
+        y_tube = get_tube_from_trajs(self.dt_tube,traj_y_lb,traj_y_ub)
+        traj_vx_lb, traj_vx_ub = get_trajs_from_interval_list(self.t_list,self.vx_interval_list)
+        vx_tube = get_tube_from_trajs(self.dt_tube,traj_vx_lb,traj_vx_ub)
+        traj_vy_lb, traj_vy_ub = get_trajs_from_interval_list(self.t_list,self.vy_interval_list)
+        vy_tube = get_tube_from_trajs(self.dt_tube,traj_vy_lb,traj_vy_ub)
+        self.x_tube_vector = TubeVector([x_tube,y_tube])
+        self.v_tube_vector = TubeVector([vx_tube,vy_tube])
+
+    
+    def contract_ocean_deriv(self,x_tube_vector,v_tube_vector,x_state):
+        ctc.deriv.contract(x_tube_vector,v_tube_vector)
+        x_int = x_tube_vector[0].last_slice().output_gate()
+        y_int = x_tube_vector[1].last_slice().output_gate()
+        x_state = IntervalVector([x_int,y_int,x_state[2]])
+        return x_state
+
+    def get_tube_from_trajs(dt,traj_lb,traj_ub):
+        tube = Tube(traj_lb,dt)
+        tube |= traj_ub
+        return tube
+
+    def get_trajs_from_interval_list(t_list,interval_list):
+        traj_lb = Trajectory(t_list,[interval.lb() for interval in interval_list])
+        traj_ub = Trajectory(t_list,[interval.ub() for interval in interval_list])
+        return traj_lb,traj_ub
+
+    """
+

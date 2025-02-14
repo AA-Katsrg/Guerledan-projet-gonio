@@ -106,7 +106,7 @@ class GonioPythonVisualizerRosNode(Node):
                 if i == 0: #should correspond to the boat position
                     self.add_boat_from_box(draw_box_list[i],self.box_stamped_orientation,self.last_boat)
                     self.last_boat = self.sea_objects[0]
-                elif i > 1: #we ignore contracted boat position
+                elif i > 0 and i < len(draw_box_list)-1: #we ignore contracted boat position
                     self.add_buoy_from_box(draw_box_list[i])
 
         #draw objects
@@ -123,10 +123,10 @@ class GonioPythonVisualizerRosNode(Node):
 
         #Draw intervals
         draw_box_lines(self.ax, self.box_stamped_position, color='red', label=self.box_stamped_position.name)
-        end = -1
+        landmarks_list = draw_box_list[1:] #we ignore boat
         if self.box_position_contracted is not None:
-            end=-2
-        for box in draw_box_list[1:end]: #we ignore boat
+            landmarks_list = draw_box_list[1:-1] #ignore boat and contracted box
+        for box in landmarks_list:
             if box is not None:
                 draw_box_lines(self.ax, box, color='red', label="raw_"+box.name)
                 if self.box_stamped_position.header.stamp.sec > 0.0: #if we have a boat

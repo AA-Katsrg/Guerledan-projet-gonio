@@ -1,4 +1,0 @@
-source;share/interval_analysis_interfaces/local_setup.bash
-source;share/interval_analysis_interfaces/local_setup.dsv
-source;share/interval_analysis_interfaces/local_setup.sh
-source;share/interval_analysis_interfaces/local_setup.zsh

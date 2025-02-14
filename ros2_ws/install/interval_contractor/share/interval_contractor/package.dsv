@@ -1,6 +1,0 @@
-source;share/interval_contractor/hook/pythonpath.ps1
-source;share/interval_contractor/hook/pythonpath.dsv
-source;share/interval_contractor/hook/pythonpath.sh
-source;share/interval_contractor/hook/ament_prefix_path.ps1
-source;share/interval_contractor/hook/ament_prefix_path.dsv
-source;share/interval_contractor/hook/ament_prefix_path.sh

@@ -39,8 +39,8 @@ class GonioPythonSimuRosNode(Node):
         simu_rate = max([position_rate,orientation_rate,velocity_rate,landmarks_rate])+1.0 #faster than fastest sensor
 
         #intervals noise
-        self.boat_position_noise_min = 10.0 #0.9
-        self.boat_position_noise_max = 10.0 #1.0
+        self.boat_position_noise_min = 100.0 #0.9
+        self.boat_position_noise_max = 100.0 #1.0
         self.boat_orientation_noise_min = 0.0
         self.boat_orientation_noise_max = 0.0
         self.boat_velocity_noise_min = 0.0
@@ -224,10 +224,9 @@ class GonioPythonSimuRosNode(Node):
 
         #save
         if self.box_position_contracted is not None:
-            if abs(self.box_position_contracted.intervals[0].start) < 9.0: 
-               self.box_pos_list.append(self.box_position_contracted)
-               if(len(self.box_pos_list) > self.box_save_nb):
-                   self.box_pos_list.pop(0)
+            self.box_pos_list.append(self.box_position_contracted)
+            if(len(self.box_pos_list) > self.box_save_nb):
+                self.box_pos_list.pop(0)
 
         for box_pos in self.box_pos_list:
             draw_box_lines(self.ax, box_pos, color='grey', label=" ", saved=True)
