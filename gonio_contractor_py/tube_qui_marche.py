@@ -141,6 +141,12 @@ fig_map.set_properties(100,100,500,500)
 fig_map.axis_limits(-20,25,-10,15)
 fig_map.add_trajectory(x_truth, "x", 0, 1)
 fig_map.add_tube(Xxy, "x", 0, 1)
+
+fig_map2 = c1.VIBesFigMap("Map2")
+fig_map2.set_tube_max_disp_slices(10000)
+fig_map2.set_properties(450, 50, 800, 800)
+fig_map2.add_tube(Xxy, "[x](.)", 0, 1) # x[0] selon x
+fig_map2.show(False) #if true, each slices are shown as boxes = longer computing time
 # fig_map.show(1)
 
 
@@ -196,6 +202,8 @@ while t < tdomain.ub(): # run the simulation from t0 to tf
 
     # Display detected landmark
     fig_map.add_beacon(mi, "red")
+
+    fig_map2.show(0.) # mise a jour de la carte positions
     prev_t_obs = t
 
   cn.contract()

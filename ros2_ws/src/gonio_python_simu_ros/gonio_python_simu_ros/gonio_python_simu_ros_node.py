@@ -25,6 +25,7 @@ class GonioPythonSimuRosNode(Node):
         # Generate an "∞" trajectory
         t_vals = linspace(0, 2 * pi, 30)  # 100 points for smoothness
         self.trajectory = [[5.0 * sin(t), 5.0 * sin(t) * cos(t)] for t in t_vals]
+        #self.trajectory = [[5*t, 0.0] for t in t_vals]
         #self.trajectory = [[2.0,-2.0],[4.0,-2.0],[3.0,2.0],[0.0,2.0]] #list of point to infinitely follow
         self.current_point_to_follow = 0 #index of the current point being followed
         self.goal_success_dist = 1.0
@@ -44,7 +45,7 @@ class GonioPythonSimuRosNode(Node):
         self.boat_orientation_noise_min = 0.0
         self.boat_orientation_noise_max = 0.0
         self.boat_velocity_noise_min = 0.0
-        self.boat_velocity_noise_max = 0.0
+        self.boat_velocity_noise_max = 0.02
         self.buoys_angle_noise_min = 0.1
         self.buoys_angle_noise_max = 0.15
         self.buoys_range_noise_min = 0.2
@@ -87,7 +88,7 @@ class GonioPythonSimuRosNode(Node):
         """
         INITIALISATIONS
         """
-        self.t0 = self.get_clock().now().nanoseconds * 1e-9  # Get current time in seconds
+        self.t_sim = 0.0
 
         """
         Dynamic data (Updated by simulation)
@@ -156,8 +157,6 @@ class GonioPythonSimuRosNode(Node):
 
 
     def simulate(self):
-        t_now = self.get_clock().now().nanoseconds * 1e-9  # Get current time in seconds
-        t_sim = t_now - self.t0
         #simulate and extract observations
         boat = self.sea_objects[0]   # First object should be the boat
         goal = self.trajectory[self.current_point_to_follow]
@@ -176,20 +175,20 @@ class GonioPythonSimuRosNode(Node):
         pos_x_err = random.uniform(self.boat_position_noise_min, self.boat_position_noise_max)  # Random error between a and b
         pos_y_err = random.uniform(self.boat_position_noise_min, self.boat_position_noise_max)
         pos_z_err = random.uniform(0.0, 0.0) 
-        self.box_stamped_position = get_box(float_to_time_msg(t_sim),"map",pos_x,pos_y,pos_z,pos_x_err,pos_y_err,pos_z_err,"position")
+        self.box_stamped_position = get_box(float_to_time_msg(self.t_sim),"map",pos_x,pos_y,pos_z,pos_x_err,pos_y_err,pos_z_err,"position")
         #orientation
         angle_x, angle_y, angle_z = 0.0, 0.0, boat.theta
         angle_x_err = random.uniform(0.0, 0.0)  # Random error between a and b
         angle_y_err = random.uniform(0.0, 0.0)
         angle_z_err = random.uniform(self.boat_orientation_noise_min, self.boat_orientation_noise_max) 
-        self.box_stamped_orientation = get_box(float_to_time_msg(t_sim),"map",angle_x, angle_y, angle_z,angle_x_err,angle_y_err,angle_z_err,"euler_angles")
+        self.box_stamped_orientation = get_box(float_to_time_msg(self.t_sim),"map",angle_x, angle_y, angle_z,angle_x_err,angle_y_err,angle_z_err,"euler_angles")
         #speed
         spd_x, spd_y, spd_z = boat.v, 0.0, 0.0
         spd_x_err = random.uniform(self.boat_velocity_noise_min, self.boat_velocity_noise_max)  # Random error between a and b
         #spd_y_err = random.uniform(self.boat_velocity_noise_min, self.boat_velocity_noise_max)
         spd_y_err = random.uniform(0.0, 0.0) 
         spd_z_err = random.uniform(0.0, 0.0) 
-        self.box_stamped_velocity = get_box(float_to_time_msg(t_sim),"map",spd_x, spd_y, spd_z,spd_x_err, spd_y_err, spd_z_err,"speed")
+        self.box_stamped_velocity = get_box(float_to_time_msg(self.t_sim),"map",spd_x, spd_y, spd_z,spd_x_err, spd_y_err, spd_z_err,"speed")
         #landmarks
         landmarks_box = [] #Box list with intervals (Angle,range) for each
         
@@ -250,6 +249,9 @@ class GonioPythonSimuRosNode(Node):
         #ros2 topic pub /it/contracted/position interval_analysis_interfaces/msg/Box "{name: 'test_box', intervals: [{name: 'x', start: -1.0, end: 1.0}, {name: 'y', start: -2.0, end: 2.0}]}"
         if self.box_position_contracted is not None:
             draw_box_lines(self.ax, self.box_position_contracted, color='green', label="contracted_boat", pos="down")
+
+        #update time for next iteration
+        self.t_sim += self.dt #even if this function is not call at its properrate, we ensure the time iterated is the wanted one
 
 
 def get_box(timestamp,frame,x,y,z,err_x,err_y,err_z,name="None"):

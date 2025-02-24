@@ -25,7 +25,8 @@ setup(
         'console_scripts': [
             'interval_contractor_node = interval_contractor.interval_contractor:main',
             'interval_contractor_codac1_node = interval_contractor.interval_contractor_codac1:main',
-            'online_interval_contractor_tube_gonio_node = interval_contractor.online_interval_contractor_tube_gonio:main'
+            'online_interval_contractor_tube_gonio_node = interval_contractor.online_interval_contractor_tube_gonio:main',
+            'offline_interval_contractor_tube_gonio_node = interval_contractor.offline_interval_contractor_tube_gonio:main'
             ],
     },
 )
