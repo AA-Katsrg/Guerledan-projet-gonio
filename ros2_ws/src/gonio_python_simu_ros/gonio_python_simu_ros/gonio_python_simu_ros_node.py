@@ -44,8 +44,8 @@ class GonioPythonSimuRosNode(Node):
         self.boat_position_noise_max = 100.0 #1.0
         self.boat_orientation_noise_min = 0.0
         self.boat_orientation_noise_max = 0.0
-        self.boat_velocity_noise_min = 0.0
-        self.boat_velocity_noise_max = 0.02
+        self.boat_velocity_noise_min = 0.03
+        self.boat_velocity_noise_max = 0.05
         self.buoys_angle_noise_min = 0.1
         self.buoys_angle_noise_max = 0.15
         self.buoys_range_noise_min = 0.2

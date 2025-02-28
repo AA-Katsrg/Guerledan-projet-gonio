@@ -113,6 +113,7 @@ x[2] = c1.Tube(x_truth[2], dt)
 # t = 10 # detection time
 # x_t = x_truth(t)
 
+# en consider ici que le point de depart est connue
 Xxy.set(x_truth(0.)[:2],0.)
 
 
@@ -141,12 +142,6 @@ fig_map.set_properties(100,100,500,500)
 fig_map.axis_limits(-20,25,-10,15)
 fig_map.add_trajectory(x_truth, "x", 0, 1)
 fig_map.add_tube(Xxy, "x", 0, 1)
-
-fig_map2 = c1.VIBesFigMap("Map2")
-fig_map2.set_tube_max_disp_slices(10000)
-fig_map2.set_properties(450, 50, 800, 800)
-fig_map2.add_tube(Xxy, "[x](.)", 0, 1) # x[0] selon x
-fig_map2.show(False) #if true, each slices are shown as boxes = longer computing time
 # fig_map.show(1)
 
 
@@ -173,7 +168,7 @@ while t < tdomain.ub(): # run the simulation from t0 to tf
 
   # Add the cn.add_data for x and v of the tube
   psit= c1.Interval(x_truth(t)[2])
-  vt = c1.IntervalVector([c1.Interval(v_truth(t)[0]),c1.Interval(v_truth(t)[1])]).inflate(0)
+  vt = c1.IntervalVector([c1.Interval(v_truth(t)[0]),c1.Interval(v_truth(t)[1])]).inflate(0.1)
 
   '''
    peut etre on aura un problem parcque le t est arrondie donc ca ne sera pas le vrai t dy tube
@@ -196,14 +191,12 @@ while t < tdomain.ub(): # run the simulation from t0 to tf
 
     # On peut ajouter de pecimisme sur mi et y avant que je les mais dans le contracteur
     ctc_gonio = Ctc_gonio([mi], [y])
-    cn.add(ctc_eval, [c1.Interval(t), p, Xxy])  # Constrain position at t
+    cn.add(ctc_eval, [c1.Interval(t), p, Xxy, v])  # Constrain position at t
     cn.add(ctc_eval, [c1.Interval(t), a, Xpsi])  # Constrain position at t
     cn.add(ctc_gonio, [p,a])  # Apply bearing constraint
 
     # Display detected landmark
-    fig_map.add_beacon(mi, "red")
-
-    fig_map2.show(0.) # mise a jour de la carte positions
+    fig_map.add_beacon(mi.inflate(0.1), "red")
     prev_t_obs = t
 
   cn.contract()

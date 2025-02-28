@@ -200,7 +200,7 @@ class ContractorNode(Node):
         if is_in_tdomain(self.tdomain,t_psit) and t_psit != self.last_t_psit:
             self.cn.add_data(self.Xpsi, t_psit, psit)
             try_contract = True
-        """for i in range(len(bearing_measurements)):
+        for i in range(len(bearing_measurements)):
             if is_in_tdomain(self.tdomain,t_measurements) and t_measurements != self.last_t_measurements:
                 mi = pos_measurements[i]
                 y = bearing_measurements[i]
@@ -212,7 +212,6 @@ class ContractorNode(Node):
                 self.cn.add(self.ctc_eval, [c1.Interval(t_measurements), a, self.Xpsi])  # Constrain position at t
                 self.cn.add(ctc_gonio, [p,a])  # Apply bearing constraint
                 try_contract = True
-                """
         
         if try_contract:
             self.cn.contract()
