@@ -4,6 +4,7 @@ from std_msgs.msg import Float64
 from geometry_msgs.msg import PoseArray, Pose
 import codac as c1
 import codac2 as c2
+from vibes import vibes
 import math
 import numpy as np
 import interval_contractor.interface_codac as Interface
@@ -21,14 +22,15 @@ class CtcMultiBearing(c2.Ctc):
 
     def contract(self, x):
         n = len(self.m)
-        A = c2.IntervalMatrix(n, 2)
+        A = c2.IntervalMatrix(n, 2) #c2 est codac2
         b = c2.IntervalVector(n)
         p = c2.IntervalVector([x[0], x[1]])
         
         for i in range(n):
             A[i, 0] = c2.sin(x[2] + self.y[i])
             A[i, 1] = -c2.cos(x[2] + self.y[i])
-            b[i] = self.m[i][0] * c2.sin(x[2] + self.y[i]) - self.m[i][1] * c2.cos(x[2] + self.y[i])
+            b[i] = self.m[i][0] * c2.sin(x[2] + self.y[i])
+            - self.m[i][1] * c2.cos(x[2] + self.y[i])
         
         c2.MulOp.bwd(b, A, p)
         x.put(0, p)
@@ -60,48 +62,64 @@ class GonioNode(Node):
         self.subscription_landmarks = self.create_subscription(BoxListStampedMsg, '/it/landmarks', self.landmarks_callback, 10)
         self.subscription_velocity = self.create_subscription(BoxMsgStamped, '/it/velocity', self.velocity_callback, 10)
         self.publisher = self.create_publisher(BoxMsgStamped, '/it/contracted/position', 10)
-        self.cap = None
+        self.cap = c1.Interval.EMPTY_SET
         self.landmarks_msg = None
         contractor_rate = 1 #Hz
         self.create_timer(1.0 / contractor_rate, self.try_contract)
-        self.velocity_x = 0
-        self.velocity_y = 0
-        self.timer = None
-        self.integral = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
-        self.x = None
+        self.velocity = 0
+        self.prev_t_slice = time.time()
+        self.cap_slice = c1.Interval.EMPTY_SET
+        #self.integral = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
+        self.v_slice = c1.IntervalVector.empty(2)
+        self.v_robot_slice = c1.Interval.EMPTY_SET
+        self.x_slice = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
+        self.x_t = c1.IntervalVector([c1.Interval(-6, 6), c1.Interval(-6, 6)])
+        self.x_slice_to_contract = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0), c1.Interval(0, 2*np.pi)])
         
-    
+        #pour afficher la vitesse
+        self.t = 0
+        self.t_prev = 0
+        self.vx = []
+        self.v_slice_x = []
+        vibes.beginDrawing()
+        vibes.newFigure("fig")
+        
+
+
     def cap_callback(self, msg):
         _, _, self.cap = box_msg_to_interval(msg)
-        #self.get_logger().info(f"Orientation reçue: {self.cap}")
+        #if self.cap_slice.is_empty() :
+        #    self.cap_slice = self.cap
+        self.cap_slice |= self.cap
+        #self.get_logger().info(f"Orientation reçue: {self.cap_slice}")
 
     def landmarks_callback(self, msg):
         self.landmarks_msg = msg
         #self.get_logger().info(f"Landmarks reçus: {self.landmarks_msg}")
-        
-    def velocity_integer(self) :
-        t = time.time()
-        self.integral[0] += (t - self.timer) * self.velocity_x
-        self.integral[1] += (t - self.timer) * self.velocity_y
-        
-        #self.get_logger().info(f"Integral reçus: {self.integral}")
 
 
     def velocity_callback (self, msg) :
-        self.velocity_x, self.velocity_y, _ = box_msg_to_interval(msg)
-        #self.get_logger().info(f"Vitesse reçus: {self.velocity_x}")
-        if self.timer is not None :
-            self.velocity_integer()
+        self.velocity, _, _ = box_msg_to_interval(msg)
+        #self.get_logger().info(f"Vitesse reçus: {self.v_robot_slice}")
+        #if self.v_robot_slice.is_empty() :
+        #    self.v_robot_slice = self.velocity
+        #print(self.v_robot_slice.is_empty())
+        self.v_robot_slice |= self.velocity
+        
+        #pour afficher les vitesses
+        self.vx.append([self.t, (((self.velocity * c1.cos(self.cap)).lb() + (self.velocity * c1.cos(self.cap)).ub()) /2)])
+        self.t += 1
+        
             
-        self.timer = time.time()
-
+        
+    
 
     def try_contract(self):
-        if self.cap is not None and self.landmarks_msg is not None :
+        if self.landmarks_msg is not None :
             #M = [c1.IntervalVector((lm[0], lm[1])) for lm in self.landmarks_msg]
             #y = [c1.Interval(math.atan2(lm[1], lm[0]) - self.cap).inflate(0.05) for lm in self.landmarks]
             
-            
+            #print("rentre dans la boucle")
             y = []
             X, Y, A, R = list_landmark_to_interval(self.landmarks_msg)
             M = []
@@ -112,33 +130,54 @@ class GonioNode(Node):
             #print(len(M))
             
             #self.x = c1.IntervalVector([c1.Interval(-6, 6), c1.Interval(-6, 6), self.cap])
+            #self.x += self.integral 
+            t = time.time()
             
-            if self.x is None :
-                self.x = c1.IntervalVector([c1.Interval(-6, 6), c1.Interval(-6, 6), self.cap])
-            else : 
-                self.x += self.integral 
-                
-            #self.get_logger().info(f"Integral reçus: {self.integral}")
+            self.get_logger().info(f"Vitesse robot reçue: {self.v_robot_slice}")
+            self.get_logger().info(f"Orientation reçue au cours du temps: {self.cap_slice}")
             
-            self.integral = c1.IntervalVector([c1.Interval(0, 0), c1.Interval(0, 0)])
-            ctc_multi_bearing = CtcGonio(M, y)
-            cn = c1.ContractorNetwork()
-            cn.add(ctc_multi_bearing, [self.x])
-            cn.contract()
+            self.v_slice = c1.IntervalVector([c1.Interval(self.v_robot_slice*c1.cos(self.cap_slice)), c1.Interval(self.v_robot_slice*c1.sin(self.cap_slice))])
+            #self.get_logger().info(f"Vitesse reçue: {self.v_slice}")
+            #self.get_logger().info(f"Temps entre deux iteration: {t- self.prev_t_slice}")
+
+            #pour le debuggage
+            self.v_slice_x = [self.v_slice[0].lb(), self.v_slice[0].ub()]
+        
+            self.t += 1
             
-            self.get_logger().info(f"Position contractée: x=[{self.x[0].lb()}, {self.x[0].ub()}], y=[{self.x[1].lb()}, {self.x[1].ub()}]")
+            self.x_slice = c1.IntervalVector(self.x_t + (t-self.prev_t_slice)*self.v_slice)
+            self.x_t_to_contract = c1.cart_prod(self.x_slice, c1.IntervalVector([self.cap]))
+            self.prev_t_slice = t
+            self.v_slice = c1.IntervalVector.empty(2)
+            self.cap_slice = c1.Interval.EMPTY_SET
+            self.x_t = self.x_slice
+            #print(self.x_t[0].ub() - self.x_t[0].lb() + self.x_t[1].ub() - self.x_t[1].lb())
+            if len(y) != 0 :
+                x_contract = CtcGonio(M, y).contract(self.x_t_to_contract)
+                #print(x_contract[0], x_contract[1])
+                #print(x_contract)
+                self.x_t = c1.IntervalVector([x_contract[0], x_contract[1]])
+                self.cap = x_contract[2]
+            
+            self.get_logger().info(f"Position contractée: x=[{self.x_t[0].lb()}, {self.x_t[0].ub()}], y=[{self.x_t[1].lb()}, {self.x_t[1].ub()}]")
             
             contracted_box = BoxMsgStamped()
             contracted_box.name = "contracted_position"
             contracted_box.header.stamp = self.get_clock().now().to_msg()
             contracted_box.header.frame_id = "map"
 
-            x_interval = IntervalMsg(name="x", start=self.x[0].lb(), end=self.x[0].ub())
-            y_interval = IntervalMsg(name="y", start=self.x[1].lb(), end=self.x[1].ub())
+            x_interval = IntervalMsg(name="x", start=self.x_t[0].lb(), end=self.x_t[0].ub())
+            y_interval = IntervalMsg(name="y", start=self.x_t[1].lb(), end=self.x_t[1].ub())
 
             contracted_box.intervals = [x_interval, y_interval]
             self.publisher.publish(contracted_box)
             #self.get_logger().info(f'Contracted position: [{x[0].lb()}, {x[0].ub()}], [{x[1].lb()}, {x[1].ub()}]')
+            
+            #affichage des vitesses
+            #vibes.drawLine(self.v_slice_x, color='r')
+            vibes.drawBox(self.t_prev, self.t, self.v_slice_x[0], self.v_slice_x[1], color = 'r')
+            vibes.drawLine(self.vx, color='b')
+            self.t_prev = self.t
 
 
 def box_msg_to_interval(msg) :
